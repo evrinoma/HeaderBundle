@@ -14,7 +14,9 @@
   ],
   "version": "1.0.0",
   "require": {
-    "php": "^7.4"
+    "php": "^7.4",
+    "evrinoma/dto-bundle": "dev-master",
+    "evrinoma/utils-bundle": "dev-master"
   },
   "autoload": {
     "psr-4": {
@@ -43,5 +45,13 @@
     "symfony/dotenv": "5.2.*"
   },
   "repositories": {
+    "dto": {
+      "type": "vcs",
+      "url": "https://github.com/evrinoma/DtoBundle.git"
+    },
+    "utils": {
+      "type": "vcs",
+      "url": "https://github.com/evrinoma/UtilsBundle.git"
+    }
   }
 }
