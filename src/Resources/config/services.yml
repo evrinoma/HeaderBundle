@@ -1,0 +1,13 @@
+services:
+  Evrinoma\ContractorBundle\Controller\ContractorApiController:
+    alias: evrinoma.contractor.api.controller
+    public: true
+
+  evrinoma.contractor.api.controller:
+    class: Evrinoma\ContractorBundle\Controller\ContractorApiController
+    arguments:
+      - '@jms_serializer'
+      - '@request_stack'
+      - '@evrinoma.dto.factory'
+    autowire: true
+

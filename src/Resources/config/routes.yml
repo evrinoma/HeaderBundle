@@ -1,0 +1,3 @@
+headerapi:
+  resource: "@HeaderBundle/Resources/config/routing/api.yml"
+  prefix: evrinoma
