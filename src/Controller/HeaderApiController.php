@@ -1,6 +1,6 @@
 <?php
 
-namespace Evrinoma\ContractorBundle\Controller;
+namespace Evrinoma\HeaderBundle\Controller;
 
 use Evrinoma\DtoBundle\Factory\FactoryDtoInterface;
 use Evrinoma\UtilsBundle\Controller\AbstractApiController;
