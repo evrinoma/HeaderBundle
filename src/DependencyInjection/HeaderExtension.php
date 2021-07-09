@@ -5,12 +5,9 @@ namespace Evrinoma\HeaderBundle\DependencyInjection;
 
 use Evrinoma\HeaderBundle\HeaderBundle;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Class HeaderExtension

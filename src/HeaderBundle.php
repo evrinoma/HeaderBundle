@@ -4,7 +4,6 @@
 namespace Evrinoma\HeaderBundle;
 
 use Evrinoma\HeaderBundle\DependencyInjection\HeaderExtension;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
