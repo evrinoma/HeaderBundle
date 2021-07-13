@@ -23,9 +23,9 @@ class HeaderManager
 
 
 //region SECTION: Public
-    public function addSoapService(HeaderServiceInterface $service): void
+    public function addHeaderService(HeaderServiceInterface $service): void
     {
-        $this->headerServices[$service->getServiceName()] = $service;
+        $this->headerServices[$service->getName()] = $service;
     }
 
 //endregion Public

@@ -10,8 +10,13 @@ interface HeaderServiceInterface
 {
 //region SECTION: Getters/Setters
     /**
+     * @return array
+     */
+    public function getFields():array;
+
+    /**
      * @return string
      */
-    public function getServiceName():string;
+    public function getName():string;
 //endregion Getters/Setters
 }
