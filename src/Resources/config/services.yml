@@ -11,3 +11,9 @@ services:
       - '@evrinoma.dto.factory'
     autowire: true
 
+  evrinoma.header.manager:
+    class: Evrinoma\HeaderBundle\Manager\HeaderManager
+
+  Evrinoma\HeaderBundle\Manager\HeaderManager:
+    alias: evrinoma.soap.manager
+

@@ -22,14 +22,12 @@ final class HeaderApiController extends AbstractApiController
 //endregion Fields
 
 //region SECTION: Constructor
-
-
     /**
      * ApiController constructor.
      *
-     * @param SerializerInterface     $serializer
-     * @param RequestStack            $requestStack
-     * @param FactoryDtoInterface     $factoryDto
+     * @param SerializerInterface $serializer
+     * @param RequestStack        $requestStack
+     * @param FactoryDtoInterface $factoryDto
      */
     public function __construct(
         SerializerInterface $serializer,
@@ -37,8 +35,8 @@ final class HeaderApiController extends AbstractApiController
         FactoryDtoInterface $factoryDto
     ) {
         parent::__construct($serializer);
-        $this->request        = $requestStack->getCurrentRequest();
-        $this->factoryDto     = $factoryDto;
+        $this->request    = $requestStack->getCurrentRequest();
+        $this->factoryDto = $factoryDto;
     }
 
 //endregion Constructor
