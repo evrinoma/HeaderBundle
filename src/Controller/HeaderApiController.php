@@ -11,8 +11,8 @@ use Evrinoma\HeaderBundle\Manager\QueryManagerInterface;
 use Evrinoma\UtilsBundle\Controller\AbstractApiController;
 use Evrinoma\UtilsBundle\Rest\RestInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use OpenApi\Annotations as OA;
 use JMS\Serializer\SerializerInterface;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -51,11 +51,31 @@ final class HeaderApiController extends AbstractApiController
         QueryManagerInterface $queryManager
     ) {
         parent::__construct($serializer);
-        $this->request    = $requestStack->getCurrentRequest();
-        $this->factoryDto = $factoryDto;
-        $this->queryManager   = $queryManager;
+        $this->request      = $requestStack->getCurrentRequest();
+        $this->factoryDto   = $factoryDto;
+        $this->queryManager = $queryManager;
     }
+//endregion Constructor
 
+//region SECTION: Private
+    private function setRestStatus(RestInterface $manager, \Exception $e): array
+    {
+        switch (true) {
+            case $e instanceof HeaderNotFoundException:
+                $manager->setRestNotFound();
+                break;
+            case $e instanceof HeaderInvalidException:
+                $manager->setRestUnprocessableEntity();
+                break;
+            default:
+                $manager->setRestBadRequest();
+        }
+
+        return ['errors' => $e->getMessage()];
+    }
+//endregion Private
+
+//region SECTION: Getters/Setters
     /**
      * @Rest\Get("/api/header", options={"expose"=true}, name="api_header")
      * @OA\Get(
@@ -92,29 +112,17 @@ final class HeaderApiController extends AbstractApiController
         $headerApiDto = $this->factoryDto->setRequest($this->request)->createDto(HeaderApiDto::class);
 
         try {
-            $json = $this->queryManager->get($headerApiDto);
+            if ($headerApiDto->hasIdentity()) {
+                $json = $this->queryManager->get($headerApiDto);
+            } else {
+                throw new HeaderInvalidException('The Dto has\'t identity invalid');
+            }
+
         } catch (\Exception $e) {
             $json = $this->setRestStatus($this->queryManager, $e);
         }
 
         return $this->setSerializeGroup('api_get_header')->json(['message' => 'Get headers', 'data' => $json], $this->queryManager->getRestStatus());
     }
-
-
-    private function setRestStatus(RestInterface $manager, \Exception $e): array
-    {
-        switch (true) {
-            case $e instanceof HeaderNotFoundException:
-                $manager->setRestNotFound();
-                break;
-            case $e instanceof HeaderInvalidException:
-                $manager->setRestUnprocessableEntity();
-                break;
-            default:
-                $manager->setRestBadRequest();
-        }
-
-        return ['errors' => $e->getMessage()];
-    }
-//endregion Constructor
+//endregion Getters/Setters
 }
