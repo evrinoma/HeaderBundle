@@ -1,12 +1,12 @@
 <?php
-namespace Evrinoma\HeaderBundle\Manager;
+namespace Evrinoma\HeaderBundle\Entity;
 
 /**
- * Interface SoapServiceInterface
+ * Interface HeaderInterface
  *
- * @package Evrinoma\SoapBundle\Manager
+ * @package Evrinoma\HeaderBundle\Entity
  */
-interface HeaderServiceInterface
+interface HeaderInterface
 {
 //region SECTION: Getters/Setters
     /**
