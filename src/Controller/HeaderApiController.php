@@ -7,6 +7,7 @@ use Evrinoma\HeaderBundle\Dto\HeaderApiDto;
 use Evrinoma\HeaderBundle\Dto\HeaderApiDtoInterface;
 use Evrinoma\HeaderBundle\Exception\HeaderInvalidException;
 use Evrinoma\HeaderBundle\Exception\HeaderNotFoundException;
+use Evrinoma\HeaderBundle\Manager\QueryManagerInterface;
 use Evrinoma\UtilsBundle\Controller\AbstractApiController;
 use Evrinoma\UtilsBundle\Rest\RestInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -79,22 +80,22 @@ final class HeaderApiController extends AbstractApiController
      *         )
      *     )
      * )
-     * @OA\Response(response=200,description="Return contractors")
+     * @OA\Response(response=200,description="Return headers")
      *
      * @return JsonResponse
      */
     public function getAction(): JsonResponse
     {
-        /** @var HeaderApiDtoInterface $contractorApiDto */
+        /** @var HeaderApiDtoInterface $headerApiDto */
         $headerApiDto = $this->factoryDto->setRequest($this->request)->createDto(HeaderApiDto::class);
 
         try {
-            $json = $this->queryManager->get($contractorApiDto);
+            $json = $this->queryManager->get($headerApiDto);
         } catch (\Exception $e) {
             $json = $this->setRestStatus($this->queryManager, $e);
         }
 
-        return $this->setSerializeGroup('api_get_contractor')->json(['message' => 'Get contractors', 'data' => $json], $this->queryManager->getRestStatus());
+        return $this->setSerializeGroup('api_get_header')->json(['message' => 'Get headers', 'data' => $json], $this->queryManager->getRestStatus());
     }
 
 

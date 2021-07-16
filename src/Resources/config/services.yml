@@ -9,11 +9,18 @@ services:
       - '@jms_serializer'
       - '@request_stack'
       - '@evrinoma.dto.factory'
+      - '@evrinoma.header.query.manager'
     autowire: true
 
-  evrinoma.header.manager:
-    class: Evrinoma\HeaderBundle\Manager\HeaderManager
+  evrinoma.header.query.manager:
+    class: Evrinoma\HeaderBundle\Manager\QueryManager
+    arguments:
+      - '@evrinoma.header.repository'
 
-  Evrinoma\HeaderBundle\Manager\HeaderManager:
-    alias: evrinoma.header.manager
+  Evrinoma\HeaderBundle\Manager\QueryManager:
+    alias: evrinoma.header.query.manager
 
+  evrinoma.header.repository:
+    class: Evrinoma\HeaderBundle\Repository\HeaderRepository
+    public: true
+    arguments:
