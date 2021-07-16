@@ -21,7 +21,7 @@ class HeaderPass implements CompilerPassInterface
 
         $definition = $container->findDefinition(HeaderRepository::class);
 
-        $taggedServices = $container->findTaggedServiceIds('evrinoma.header.repository');
+        $taggedServices = $container->findTaggedServiceIds('evrinoma.header');
 
         foreach ($taggedServices as $id => $tags) {
             $definition->addMethodCall('addHeader', [new Reference($id)]);
