@@ -11,6 +11,7 @@ use Evrinoma\HeaderBundle\Manager\QueryManagerInterface;
 use Evrinoma\UtilsBundle\Controller\AbstractApiController;
 use Evrinoma\UtilsBundle\Rest\RestInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use OpenApi\Annotations as OA;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,15 +39,16 @@ final class HeaderApiController extends AbstractApiController
     /**
      * ApiController constructor.
      *
-     * @param SerializerInterface $serializer
-     * @param RequestStack        $requestStack
-     * @param FactoryDtoInterface $factoryDto
+     * @param SerializerInterface   $serializer
+     * @param RequestStack          $requestStack
+     * @param FactoryDtoInterface   $factoryDto
+     * @param QueryManagerInterface $queryManager
      */
     public function __construct(
         SerializerInterface $serializer,
         RequestStack $requestStack,
         FactoryDtoInterface $factoryDto,
-        QueryManagerInterface $queryManager,
+        QueryManagerInterface $queryManager
     ) {
         parent::__construct($serializer);
         $this->request    = $requestStack->getCurrentRequest();
