@@ -2,29 +2,29 @@
 
 namespace Evrinoma\HeaderBundle\DependencyInjection\Compiler;
 
-use Evrinoma\HeaderBundle\Manager\HeaderManager;
+use Evrinoma\HeaderBundle\Repository\HeaderRepository;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 
-class HeaderServicePass implements CompilerPassInterface
+class HeaderPass implements CompilerPassInterface
 {
     /**
      * @inheritDoc
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(HeaderManager::class)) {
+        if (!$container->has(HeaderRepository::class)) {
             return;
         }
 
-        $definition = $container->findDefinition(HeaderManager::class);
+        $definition = $container->findDefinition(HeaderRepository::class);
 
-        $taggedServices = $container->findTaggedServiceIds('evrinoma.service.header');
+        $taggedServices = $container->findTaggedServiceIds('evrinoma.header.repository');
 
         foreach ($taggedServices as $id => $tags) {
-            $definition->addMethodCall('addHeaderService', [new Reference($id)]);
+            $definition->addMethodCall('addHeader', [new Reference($id)]);
         }
     }
 }

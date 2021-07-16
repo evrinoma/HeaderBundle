@@ -20,6 +20,10 @@ services:
   Evrinoma\HeaderBundle\Manager\QueryManager:
     alias: evrinoma.header.query.manager
 
+
+  Evrinoma\HeaderBundle\Repository\HeaderRepository:
+    alias: evrinoma.header.repository
+
   evrinoma.header.repository:
     class: Evrinoma\HeaderBundle\Repository\HeaderRepository
     public: true
