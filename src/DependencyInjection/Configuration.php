@@ -5,7 +5,7 @@ namespace Evrinoma\HeaderBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-use Evrinoma\HeaderBundle\HeaderBundle;
+use Evrinoma\HeaderBundle\EvrinomaHeaderBundle;
 
 /**
  * Class Configuration
@@ -20,7 +20,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder      = new TreeBuilder(HeaderBundle::HEADER_BUNDLE);
+        $treeBuilder      = new TreeBuilder(EvrinomaHeaderBundle::HEADER_BUNDLE);
         $rootNode         = $treeBuilder->getRootNode();
 
         return $treeBuilder;

@@ -4,7 +4,7 @@
 namespace Evrinoma\HeaderBundle;
 
 use Evrinoma\HeaderBundle\DependencyInjection\Compiler\HeaderPass;
-use Evrinoma\HeaderBundle\DependencyInjection\HeaderExtension;
+use Evrinoma\HeaderBundle\DependencyInjection\EvrinomaHeaderExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  *
  * @package Evrinoma\HeaderBundle
  */
-class HeaderBundle extends Bundle
+class EvrinomaHeaderBundle extends Bundle
 {
 //region SECTION: Fields
     public const HEADER_BUNDLE = 'header';
@@ -32,7 +32,7 @@ class HeaderBundle extends Bundle
     public function getContainerExtension()
     {
         if (null === $this->extension) {
-            $this->extension = new HeaderExtension();
+            $this->extension = new EvrinomaHeaderExtension();
         }
 
         return $this->extension;

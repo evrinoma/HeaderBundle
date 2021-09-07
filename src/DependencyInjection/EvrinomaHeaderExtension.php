@@ -3,18 +3,13 @@
 
 namespace Evrinoma\HeaderBundle\DependencyInjection;
 
-use Evrinoma\HeaderBundle\HeaderBundle;
+use Evrinoma\HeaderBundle\EvrinomaHeaderBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-/**
- * Class HeaderExtension
- *
- * @package Evrinoma\HeaderBundle\DependencyInjection
- */
-class HeaderExtension extends Extension
+class EvrinomaHeaderExtension extends Extension
 {
 //region SECTION: Public
     public function load(array $configs, ContainerBuilder $container)
@@ -29,7 +24,7 @@ class HeaderExtension extends Extension
 //region SECTION: Getters/Setters
     public function getAlias()
     {
-        return HeaderBundle::HEADER_BUNDLE;
+        return EvrinomaHeaderBundle::HEADER_BUNDLE;
     }
 //endregion Getters/Setters
 }
