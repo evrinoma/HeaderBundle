@@ -4,12 +4,12 @@ namespace Evrinoma\HeaderBundle\Dto;
 
 use Evrinoma\DtoBundle\Dto\AbstractDto;
 use Evrinoma\DtoBundle\Dto\DtoInterface;
-use Evrinoma\HeaderBundle\Model\HeaderModelInterface;
+use Evrinoma\DtoCommon\ValueObject\IdentityTrait;
 use Symfony\Component\HttpFoundation\Request;
 
 class HeaderApiDto extends AbstractDto  implements HeaderApiDtoInterface
 {
-    private string $identity = '';
+    use IdentityTrait;
 
     /**
      * @param string $identity
@@ -23,25 +23,12 @@ class HeaderApiDto extends AbstractDto  implements HeaderApiDtoInterface
         return $this;
     }
 
-    public function hasIdentity(): bool
-    {
-        return $this->identity !== '';
-    }
-
-    /**
-     * @return string
-     */
-    public function getIdentity(): string
-    {
-        return $this->identity;
-    }
-
     public function toDto(Request $request): DtoInterface
     {
         $class = $request->get(DtoInterface::DTO_CLASS);
 
         if ($class === $this->getClass()) {
-            $identity   = $request->get(HeaderModelInterface::IDENTITY);
+            $identity = $request->get(HeaderApiDtoInterface::IDENTITY);
 
             if ($identity) {
                 $this->setIdentity($identity);

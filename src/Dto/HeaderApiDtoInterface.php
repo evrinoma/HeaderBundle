@@ -2,9 +2,8 @@
 
 namespace Evrinoma\HeaderBundle\Dto;
 
-interface HeaderApiDtoInterface
-{
-    public function getIdentity(): string;
+use Evrinoma\DtoCommon\ValueObject\IdentityInterface;
 
-    public function hasIdentity(): bool;
+interface HeaderApiDtoInterface extends IdentityInterface
+{
 }
