@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 class EvrinomaHeaderBundle extends Bundle
 {
 //region SECTION: Fields
-    public const HEADER_BUNDLE = 'header';
+    public const BUNDLE = 'header';
 //endregion Fields
 
 //region SECTION: Getters/Setters

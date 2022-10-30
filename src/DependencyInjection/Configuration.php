@@ -20,7 +20,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder      = new TreeBuilder(EvrinomaHeaderBundle::HEADER_BUNDLE);
+        $treeBuilder      = new TreeBuilder(EvrinomaHeaderBundle::BUNDLE);
         $rootNode         = $treeBuilder->getRootNode();
 
         return $treeBuilder;

@@ -2,14 +2,18 @@
 
 namespace Evrinoma\HeaderBundle\Controller;
 
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Evrinoma\DtoBundle\Factory\FactoryDtoInterface;
-use Evrinoma\HeaderBundle\Dto\HeaderApiDto;
 use Evrinoma\HeaderBundle\Dto\HeaderApiDtoInterface;
+use Evrinoma\HeaderBundle\Exception\HeaderCannotBeCreatedException;
+use Evrinoma\HeaderBundle\Exception\HeaderCannotBeRemovedException;
+use Evrinoma\HeaderBundle\Exception\HeaderCannotBeSavedException;
 use Evrinoma\HeaderBundle\Exception\HeaderInvalidException;
 use Evrinoma\HeaderBundle\Exception\HeaderNotFoundException;
-use Evrinoma\HeaderBundle\Manager\QueryManagerInterface;
-use Evrinoma\UtilsBundle\Controller\AbstractApiController;
-use Evrinoma\UtilsBundle\Rest\RestInterface;
+use Evrinoma\HeaderBundle\Facade\Header\FacadeInterface;
+use Evrinoma\HeaderBundle\Serializer\GroupInterface;
+use Evrinoma\UtilsBundle\Controller\AbstractWrappedApiController;
+use Evrinoma\UtilsBundle\Controller\ApiControllerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\Serializer\SerializerInterface;
 use OpenApi\Annotations as OA;
@@ -17,67 +21,163 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-final class HeaderApiController extends AbstractApiController
+final class HeaderApiController extends AbstractWrappedApiController implements ApiControllerInterface
 {
-//region SECTION: Fields
-    /**
-     * @var ?Request
-     */
+    private string $dtoClass;
+
     private ?Request $request;
-    /**
-     * @var FactoryDtoInterface
-     */
+
     private FactoryDtoInterface $factoryDto;
 
-    /**
-     * @var QueryManagerInterface|RestInterface
-     */
-    private QueryManagerInterface $queryManager;
-//endregion Fields
+    private FacadeInterface $facade;
 
-//region SECTION: Constructor
-    /**
-     * ApiController constructor.
-     *
-     * @param SerializerInterface   $serializer
-     * @param RequestStack          $requestStack
-     * @param FactoryDtoInterface   $factoryDto
-     * @param QueryManagerInterface $queryManager
-     */
     public function __construct(
         SerializerInterface $serializer,
         RequestStack $requestStack,
         FactoryDtoInterface $factoryDto,
-        QueryManagerInterface $queryManager
+        FacadeInterface $facade,
+        string $dtoClass
     ) {
         parent::__construct($serializer);
-        $this->request      = $requestStack->getCurrentRequest();
-        $this->factoryDto   = $factoryDto;
-        $this->queryManager = $queryManager;
+        $this->request = $requestStack->getCurrentRequest();
+        $this->factoryDto = $factoryDto;
+        $this->dtoClass = $dtoClass;
+        $this->facade = $facade;
     }
-//endregion Constructor
 
-//region SECTION: Private
-    private function setRestStatus(RestInterface $manager, \Exception $e): array
+    /**
+     * @Rest\Post("/api/header/create", options={"expose": true}, name="api_header_create")
+     * @OA\Post(
+     *     tags={"header"},
+     *     description="the method perform create header",
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 example={
+     *                     "class": "Evrinoma\HeaderBundle\Dto\HeaderApiDto",
+     *                 },
+     *                 type="object",
+     *                 @OA\Property(property="class", type="string", default="Evrinoma\HeaderBundle\Dto\HeaderApiDto"),
+     *             )
+     *         )
+     *     )
+     * )
+     * @OA\Response(response=200, description="Create header")
+     *
+     * @return JsonResponse
+     */
+    public function postAction(): JsonResponse
     {
-        switch (true) {
-            case $e instanceof HeaderNotFoundException:
-                $manager->setRestNotFound();
-                break;
-            case $e instanceof HeaderInvalidException:
-                $manager->setRestUnprocessableEntity();
-                break;
-            default:
-                $manager->setRestBadRequest();
+        /** @var HeaderApiDtoInterface $headerApiDto */
+        $headerApiDto = $this->factoryDto->setRequest($this->request)->createDto($this->dtoClass);
+
+        $this->setStatusCreated();
+
+        $json = [];
+        $error = [];
+        $group = GroupInterface::API_POST_HEADER;
+
+        try {
+            $this->facade->post($headerApiDto, $group, $json);
+        } catch (\Exception $e) {
+            $error = $this->setRestStatus($e);
         }
 
-        return ['errors' => $e->getMessage()];
+        return $this->setSerializeGroup($group)->JsonResponse('Create header', $json, $error);
     }
-//endregion Private
 
-//region SECTION: Getters/Setters
     /**
-     * @Rest\Get("/api/header", options={"expose"=true}, name="api_header")
+     * @Rest\Put("/api/header/save", options={"expose": true}, name="api_header_save")
+     * @OA\Put(
+     *     tags={"header"},
+     *     description="the method perform save header for current entity",
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 example={
+     *                     "class": "Evrinoma\HeaderBundle\Dto\HeaderApiDto",
+     *                 },
+     *                 type="object",
+     *                 @OA\Property(property="class", type="string", default="Evrinoma\HeaderBundle\Dto\HeaderApiDto"),
+     *             )
+     *         )
+     *     )
+     * )
+     * @OA\Response(response=200, description="Save header")
+     *
+     * @return JsonResponse
+     */
+    public function putAction(): JsonResponse
+    {
+        /** @var HeaderApiDtoInterface $headerApiDto */
+        $headerApiDto = $this->factoryDto->setRequest($this->request)->createDto($this->dtoClass);
+
+        $json = [];
+        $error = [];
+        $group = GroupInterface::API_PUT_HEADER;
+
+        try {
+            $this->facade->put($headerApiDto, $group, $json);
+        } catch (\Exception $e) {
+            $error = $this->setRestStatus($e);
+        }
+
+        return $this->setSerializeGroup($group)->JsonResponse('Save header', $json, $error);
+    }
+
+    /**
+     * @Rest\Delete("/api/header/delete", options={"expose": true}, name="api_header_delete")
+     * @OA\Delete(
+     *     tags={"header"},
+     *     @OA\Parameter(
+     *         description="class",
+     *         in="query",
+     *         name="class",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="Evrinoma\HeaderBundle\Dto\HeaderApiDto",
+     *             readOnly=true
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         description="id Entity",
+     *         in="query",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="3",
+     *         )
+     *     )
+     * )
+     * @OA\Response(response=200, description="Delete header")
+     *
+     * @return JsonResponse
+     */
+    public function deleteAction(): JsonResponse
+    {
+        /** @var HeaderApiDtoInterface $headerApiDto */
+        $headerApiDto = $this->factoryDto->setRequest($this->request)->createDto($this->dtoClass);
+
+        $this->setStatusAccepted();
+
+        $json = [];
+        $error = [];
+
+        try {
+            $this->facade->delete($headerApiDto, '', $json);
+        } catch (\Exception $e) {
+            $error = $this->setRestStatus($e);
+        }
+
+        return $this->JsonResponse('Delete header', $json, $error);
+    }
+
+    /**
+     * @Rest\Get("/api/header/criteria", options={"expose": true}, name="api_header_criteria")
      * @OA\Get(
      *     tags={"header"},
      *     @OA\Parameter(
@@ -106,23 +206,98 @@ final class HeaderApiController extends AbstractApiController
      *
      * @return JsonResponse
      */
+    public function criteriaAction(): JsonResponse
+    {
+        /** @var HeaderApiDtoInterface $headerApiDto */
+        $headerApiDto = $this->factoryDto->setRequest($this->request)->createDto($this->dtoClass);
+
+        $json = [];
+        $error = [];
+        $group = GroupInterface::API_CRITERIA_HEADER;
+
+        try {
+            $this->facade->criteria($headerApiDto, $group, $json);
+        } catch (\Exception $e) {
+            $error = $this->setRestStatus($e);
+        }
+
+        return $this->setSerializeGroup($group)->JsonResponse('Get header', $json, $error);
+    }
+
+    /**
+     * @Rest\Get("/api/header", options={"expose": true}, name="api_header")
+     * @OA\Get(
+     *     tags={"header"},
+     *     @OA\Parameter(
+     *         description="class",
+     *         in="query",
+     *         name="class",
+     *         required=true,
+     *         @OA\Schema(
+     *           type="string",
+     *           default="Evrinoma\HeaderBundle\Dto\HeaderApiDto",
+     *           readOnly=true
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         description="id Entity",
+     *         in="query",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             default="1000",
+     *         )
+     *     )
+     * )
+     * @OA\Response(response=200,description="Return headers")
+     *
+     * @return JsonResponse
+     */
     public function getAction(): JsonResponse
     {
         /** @var HeaderApiDtoInterface $headerApiDto */
-        $headerApiDto = $this->factoryDto->setRequest($this->request)->createDto(HeaderApiDto::class);
+        $headerApiDto = $this->factoryDto->setRequest($this->request)->createDto($this->dtoClass);
+
+        $json = [];
+        $error = [];
+        $group = GroupInterface::API_GET_HEADER;
 
         try {
-            if ($headerApiDto->hasIdentity()) {
-                $json = $this->queryManager->get($headerApiDto);
-            } else {
-                throw new HeaderInvalidException('The Dto has\'t identity invalid');
-            }
-
+            $this->facade->get($headerApiDto, $group, $json);
         } catch (\Exception $e) {
-            $json = $this->setRestStatus($this->queryManager, $e);
+            $error = $this->setRestStatus($e);
         }
 
-        return $this->setSerializeGroup('api_get_header')->json(['message' => 'Get headers', 'data' => $json], $this->queryManager->getRestStatus());
+        return $this->setSerializeGroup($group)->JsonResponse('Get header', $json, $error);
     }
-//endregion Getters/Setters
+
+    /**
+     * @param \Exception $e
+     *
+     * @return array
+     */
+    public function setRestStatus(\Exception $e): array
+    {
+        switch (true) {
+            case $e instanceof HeaderCannotBeCreatedException:
+            case $e instanceof HeaderCannotBeRemovedException:
+            case $e instanceof HeaderCannotBeSavedException:
+                $this->setStatusNotImplemented();
+                break;
+            case $e instanceof HeaderNotFoundException:
+                $this->setStatusNotFound();
+                break;
+            case $e instanceof UniqueConstraintViolationException:
+                $this->setStatusConflict();
+                break;
+            case $e instanceof HeaderInvalidException:
+                $this->setStatusUnprocessableEntity();
+                break;
+            default:
+                $this->setStatusBadRequest();
+        }
+
+        return [$e->getMessage()];
+    }
 }

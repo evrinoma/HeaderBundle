@@ -24,7 +24,7 @@ class EvrinomaHeaderExtension extends Extension
 //region SECTION: Getters/Setters
     public function getAlias()
     {
-        return EvrinomaHeaderBundle::HEADER_BUNDLE;
+        return EvrinomaHeaderBundle::BUNDLE;
     }
 //endregion Getters/Setters
 }
