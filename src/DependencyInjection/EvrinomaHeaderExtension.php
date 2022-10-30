@@ -21,7 +21,6 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 class EvrinomaHeaderExtension extends Extension
 {
-    // region SECTION: Public
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
@@ -29,12 +28,9 @@ class EvrinomaHeaderExtension extends Extension
         $configuration = $this->getConfiguration($configs, $container);
         $config = $this->processConfiguration($configuration, $configs);
     }
-// endregion Public
 
-// region SECTION: Getters/Setters
     public function getAlias()
     {
         return EvrinomaHeaderBundle::BUNDLE;
     }
-// endregion Getters/Setters
 }

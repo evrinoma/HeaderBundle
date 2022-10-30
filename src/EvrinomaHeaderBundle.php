@@ -23,11 +23,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class EvrinomaHeaderBundle extends Bundle
 {
-    // region SECTION: Fields
     public const BUNDLE = 'header';
-    // endregion Fields
-
-    // region SECTION: Getters/Setters
 
     public function build(ContainerBuilder $container)
     {
@@ -45,5 +41,4 @@ class EvrinomaHeaderBundle extends Bundle
 
         return $this->extension;
     }
-// endregion Getters/Setters
 }
