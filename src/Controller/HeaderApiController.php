@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the package.
+ *
+ * (c) Nikolay Nikolaev <evrinoma@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Evrinoma\HeaderBundle\Controller;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
@@ -186,23 +197,23 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
      *         name="class",
      *         required=true,
      *         @OA\Schema(
-     *           type="string",
-     *           default="Evrinoma\HeaderBundle\Dto\HeaderApiDto",
-     *           readOnly=true
+     *             type="string",
+     *             default="Evrinoma\HeaderBundle\Dto\HeaderApiDto",
+     *             readOnly=true
      *         )
      *     ),
-     *      @OA\Parameter(
+     *     @OA\Parameter(
      *         description="identity header",
      *         in="query",
      *         name="identity",
      *         required=true,
      *         @OA\Schema(
-     *           type="string",
-     *           default="app.basic.contr_agent",
+     *             type="string",
+     *             default="app.basic.contr_agent",
      *         )
      *     )
      * )
-     * @OA\Response(response=200,description="Return headers")
+     * @OA\Response(response=200, description="Return headers")
      *
      * @return JsonResponse
      */
@@ -234,9 +245,9 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
      *         name="class",
      *         required=true,
      *         @OA\Schema(
-     *           type="string",
-     *           default="Evrinoma\HeaderBundle\Dto\HeaderApiDto",
-     *           readOnly=true
+     *             type="string",
+     *             default="Evrinoma\HeaderBundle\Dto\HeaderApiDto",
+     *             readOnly=true
      *         )
      *     ),
      *     @OA\Parameter(
@@ -250,7 +261,7 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
      *         )
      *     )
      * )
-     * @OA\Response(response=200,description="Return headers")
+     * @OA\Response(response=200, description="Return headers")
      *
      * @return JsonResponse
      */

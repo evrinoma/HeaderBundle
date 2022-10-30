@@ -24,7 +24,7 @@ interface QueryMediatorInterface
     public function alias(): string;
 
     /**
-     * @param HeaderApiDtoInterface    $dto
+     * @param HeaderApiDtoInterface $dto
      * @param QueryBuilderInterface $builder
      *
      * @return mixed
@@ -32,7 +32,7 @@ interface QueryMediatorInterface
     public function createQuery(HeaderApiDtoInterface $dto, QueryBuilderInterface $builder): void;
 
     /**
-     * @param HeaderApiDtoInterface    $dto
+     * @param HeaderApiDtoInterface $dto
      * @param QueryBuilderInterface $builder
      *
      * @return array

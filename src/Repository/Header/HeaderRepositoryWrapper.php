@@ -29,7 +29,7 @@ abstract class HeaderRepositoryWrapper extends RepositoryWrapper
 
     public function findWrapped($id, $lockMode = null, $lockVersion = null)
     {
-       return null;
+        return null;
     }
 
     protected function criteriaWrapped($entity): array
@@ -38,7 +38,7 @@ abstract class HeaderRepositoryWrapper extends RepositoryWrapper
         $manager = $this->managerRegistry->getManager(ObjectRegistryInterface::class);
         $headers = $manager->getObjects();
 
-        /** @var HeaderapiDtoInterface $entity */
-        return (array_key_exists($entity->getIdentity(), $headers)) ? $headers[$entity->getIdentity()]->create() : [];
+        /* @var HeaderapiDtoInterface $entity */
+        return (\array_key_exists($entity->getIdentity(), $headers)) ? $headers[$entity->getIdentity()]->create() : [];
     }
 }

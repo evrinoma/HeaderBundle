@@ -1,29 +1,37 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the package.
+ *
+ * (c) Nikolay Nikolaev <evrinoma@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Evrinoma\HeaderBundle\DependencyInjection;
 
+use Evrinoma\HeaderBundle\EvrinomaHeaderBundle;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-use Evrinoma\HeaderBundle\EvrinomaHeaderBundle;
 
 /**
- * Class Configuration
- *
- * @package Evrinoma\HeaderBundle\DependencyInjection
+ * Class Configuration.
  */
 class Configuration implements ConfigurationInterface
 {
-//region SECTION: Getters/Setters
+    // region SECTION: Getters/Setters
     /**
      * {@inheritdoc}
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder      = new TreeBuilder(EvrinomaHeaderBundle::BUNDLE);
-        $rootNode         = $treeBuilder->getRootNode();
+        $treeBuilder = new TreeBuilder(EvrinomaHeaderBundle::BUNDLE);
+        $rootNode = $treeBuilder->getRootNode();
 
         return $treeBuilder;
     }
-//endregion Getters/Setters
+// endregion Getters/Setters
 }

@@ -1,5 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the package.
+ *
+ * (c) Nikolay Nikolaev <evrinoma@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Evrinoma\HeaderBundle;
 
@@ -9,17 +19,15 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Class HeaderBundle
- *
- * @package Evrinoma\HeaderBundle
+ * Class HeaderBundle.
  */
 class EvrinomaHeaderBundle extends Bundle
 {
-//region SECTION: Fields
+    // region SECTION: Fields
     public const BUNDLE = 'header';
-//endregion Fields
+    // endregion Fields
 
-//region SECTION: Getters/Setters
+    // region SECTION: Getters/Setters
 
     public function build(ContainerBuilder $container)
     {
@@ -37,5 +45,5 @@ class EvrinomaHeaderBundle extends Bundle
 
         return $this->extension;
     }
-//endregion Getters/Setters
+// endregion Getters/Setters
 }

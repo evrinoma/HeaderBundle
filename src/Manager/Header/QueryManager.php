@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Evrinoma\HeaderBundle\Manager\Header;
 
-
 use Evrinoma\HeaderBundle\Dto\HeaderApiDtoInterface;
 use Evrinoma\HeaderBundle\Exception\HeaderNotFoundException;
 use Evrinoma\HeaderBundle\Exception\HeaderProxyException;

@@ -15,13 +15,13 @@ namespace Evrinoma\HeaderBundle\Facade\Header;
 
 use Doctrine\Persistence\ManagerRegistry;
 use Evrinoma\DtoBundle\Dto\DtoInterface;
-use Evrinoma\HeaderBundle\Manager\Header\CommandManagerInterface;
-use Evrinoma\HeaderBundle\Manager\QueryManagerInterface;
-use Evrinoma\HeaderBundle\PreValidator\DtoPreValidatorInterface;
 use Evrinoma\HeaderBundle\Exception\HeaderCannotBeCreatedException;
 use Evrinoma\HeaderBundle\Exception\HeaderCannotBeRemovedException;
 use Evrinoma\HeaderBundle\Exception\HeaderCannotBeSavedException;
 use Evrinoma\HeaderBundle\Exception\HeaderNotFoundException;
+use Evrinoma\HeaderBundle\Manager\Header\CommandManagerInterface;
+use Evrinoma\HeaderBundle\Manager\QueryManagerInterface;
+use Evrinoma\HeaderBundle\PreValidator\DtoPreValidatorInterface;
 use Evrinoma\UtilsBundle\Facade\FacadeTrait;
 use Evrinoma\UtilsBundle\Handler\HandlerInterface;
 
