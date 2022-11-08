@@ -1,0 +1,94 @@
+services:
+  Evrinoma\HeaderBundle\Controller\HeaderApiController:
+    alias: evrinoma.header.api.controller
+    public: true
+
+  evrinoma.header.api.controller:
+    class: Evrinoma\HeaderBundle\Controller\HeaderApiController
+    arguments:
+      - '@jms_serializer'
+      - '@request_stack'
+      - '@evrinoma.dto.factory'
+      - '@evrinoma.header.facade'
+    autowire: true
+
+  evrinoma.header.facade:
+    class: Evrinoma\HeaderBundle\Facade\Header\Facade
+    arguments:
+      - '@doctrine'
+      - '@evrinoma.header.command.manager'
+      - '@evrinoma.header.query.manager'
+    autowire: true
+
+  Evrinoma\HeaderBundle\Facade\Header\FacadeInterface:
+    alias: evrinoma.header.facade
+
+  evrinoma.header.factory:
+    class: Evrinoma\HeaderBundle\Factory\HeaderFactory
+    public: true
+    arguments:
+
+  evrinoma.header.repository:
+    class: Evrinoma\HeaderBundle\Repository\Header\HeaderRepository
+    public: true
+    arguments:
+
+  evrinoma.header.command.manager:
+    class: Evrinoma\HeaderBundle\Manager\Header\CommandManager
+    arguments:
+      - '@evrinoma.header.validator'
+      - '@evrinoma.header.repository'
+      - '@evrinoma.header.factory'
+      - '@evrinoma.header.command.mediator'
+
+  Evrinoma\HeaderBundle\Manager\Header\CommandManagerInterface:
+    alias: evrinoma.header.command.manager
+
+  evrinoma.header.query.manager:
+    class: Evrinoma\HeaderBundle\Manager\Header\QueryManager
+    arguments:
+      - '@evrinoma.header.repository'
+
+  Evrinoma\HeaderBundle\Manager\Header\QueryManagerInterface:
+    alias: evrinoma.header.query.manager
+    
+  evrinoma.header.validator:
+    class: Evrinoma\HeaderBundle\Validator\HeaderValidator
+    public: true
+    arguments:
+
+  Evrinoma\HeaderBundle\Validator\HeaderValidator:
+    alias: evrinoma.header.validator
+
+  evrinoma.header.query.mediator:
+    class: Evrinoma\HeaderBundle\Mediator\QueryMediator
+    public: true
+    arguments:
+
+  Evrinoma\HeaderBundle\Mediator\QueryMediator:
+    alias: evrinoma.header.query.mediator
+
+  Evrinoma\HeaderBundle\Mediator\QueryMediatorInterface:
+    alias: evrinoma.header.query.mediator
+
+  evrinoma.header.command.mediator:
+    class: Evrinoma\HeaderBundle\Mediator\CommandMediator
+    public: true
+    arguments:
+
+  Evrinoma\HeaderBundle\Mediator\CommandMediator:
+    alias: evrinoma.header.command.mediator
+
+  Evrinoma\HeaderBundle\Mediator\CommandMediatorInterface:
+    alias: evrinoma.header.command.mediator
+
+  evrinoma.header.pre.validator:
+    class: Evrinoma\HeaderBundle\PreValidator\DtoPreValidator
+    public: true
+    arguments:
+
+  Evrinoma\HeaderBundle\PreValidator\DtoPreValidator:
+    alias: evrinoma.header.pre.validator
+
+  Evrinoma\HeaderBundle\PreValidator\DtoPreValidatorInterface:
+    alias: evrinoma.header.pre.validator

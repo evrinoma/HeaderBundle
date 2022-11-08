@@ -13,7 +13,11 @@ declare(strict_types=1);
 
 namespace Evrinoma\HeaderBundle;
 
-use Evrinoma\HeaderBundle\DependencyInjection\Compiler\HeaderPass;
+
+use Evrinoma\HeaderBundle\DependencyInjection\Compiler\DecoratorPass;
+use Evrinoma\HeaderBundle\DependencyInjection\Compiler\MapEntityPass;
+use Evrinoma\HeaderBundle\DependencyInjection\Compiler\ObjectRegistryPass;
+use Evrinoma\HeaderBundle\DependencyInjection\Compiler\ServicePass;
 use Evrinoma\HeaderBundle\DependencyInjection\EvrinomaHeaderExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -29,7 +33,10 @@ class EvrinomaHeaderBundle extends Bundle
     {
         parent::build($container);
         $container
-            ->addCompilerPass(new HeaderPass())
+            ->addCompilerPass(new MapEntityPass($this->getNamespace(), $this->getPath()))
+            ->addCompilerPass(new DecoratorPass())
+            ->addCompilerPass(new ServicePass())
+            ->addCompilerPass(new ObjectRegistryPass())
         ;
     }
 

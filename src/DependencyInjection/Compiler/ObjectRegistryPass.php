@@ -13,28 +13,28 @@ declare(strict_types=1);
 
 namespace Evrinoma\HeaderBundle\DependencyInjection\Compiler;
 
-use Evrinoma\HeaderBundle\Repository\HeaderRepository;
+use Evrinoma\HeaderBundle\Registry\ObjectRegistryInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class HeaderPass implements CompilerPassInterface
+class ObjectRegistryPass implements CompilerPassInterface
 {
     /**
      * {@inheritDoc}
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(HeaderRepository::class)) {
+        if (!$container->has(ObjectRegistryInterface::class)) {
             return;
         }
 
-        $definition = $container->findDefinition(HeaderRepository::class);
+        $definition = $container->findDefinition(ObjectRegistryInterface::class);
 
         $taggedServices = $container->findTaggedServiceIds('evrinoma.header');
 
         foreach ($taggedServices as $id => $tags) {
-            $definition->addMethodCall('addHeader', [new Reference($id)]);
+            $definition->addMethodCall('addObject', [new Reference($id)]);
         }
     }
 }
