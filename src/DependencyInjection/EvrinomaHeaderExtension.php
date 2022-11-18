@@ -102,7 +102,7 @@ class EvrinomaHeaderExtension extends Extension
             ]
         );
 
-        if ($registry) {
+        if ($registry && isset(self::$doctrineDrivers[$config['db_driver']])) {
             $this->wireRepository($container, $registry, $config['entity'], $config['db_driver']);
         }
 
@@ -180,7 +180,7 @@ class EvrinomaHeaderExtension extends Extension
         $definitionRepository->setArgument(0, $registry);
         $definitionRepository->setArgument(1, $class);
         $definitionRepository->setArgument(2, $definitionQueryMediator);
-        $container->addAliases(['evrinoma.'.$this->getAlias().'.repository' => 'evrinoma.'.$this->getAlias().'.'.$driver.'.repository']);
+        $container->addDefinitions(['evrinoma.'.$this->getAlias().'.repository' => $definitionRepository]);
         $container->addAliases([HeaderCommandRepositoryInterface::class => 'evrinoma.'.$this->getAlias().'.repository']);
         $container->addAliases([HeaderQueryRepositoryInterface::class => 'evrinoma.'.$this->getAlias().'.repository']);
     }
