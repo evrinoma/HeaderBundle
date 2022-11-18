@@ -18,6 +18,7 @@ services:
       - '@doctrine'
       - '@evrinoma.header.command.manager'
       - '@evrinoma.header.query.manager'
+      - '@evrinoma.header.provider.dto'
     autowire: true
 
   Evrinoma\HeaderBundle\Facade\Header\FacadeInterface:
@@ -28,8 +29,13 @@ services:
     public: true
     arguments:
 
-  evrinoma.header.repository:
-    class: Evrinoma\HeaderBundle\Repository\Header\HeaderRepository
+  evrinoma.header.api.repository:
+    class: Evrinoma\HeaderBundle\Repository\Api\Header\HeaderRepository
+    public: true
+    arguments:
+
+  evrinoma.header.orm.repository:
+    class: Evrinoma\HeaderBundle\Repository\Orm\Header\HeaderRepository
     public: true
     arguments:
 
@@ -75,6 +81,7 @@ services:
     class: Evrinoma\HeaderBundle\Mediator\CommandMediator
     public: true
     arguments:
+      - '@evrinoma.header.repository'
 
   Evrinoma\HeaderBundle\Mediator\CommandMediator:
     alias: evrinoma.header.command.mediator
@@ -92,3 +99,27 @@ services:
 
   Evrinoma\HeaderBundle\PreValidator\DtoPreValidatorInterface:
     alias: evrinoma.header.pre.validator
+
+  evrinoma.header.form.rest.tag:
+    class: Evrinoma\HeaderBundle\Form\Rest\HeaderTagChoiceType
+    arguments:
+      - '@evrinoma.header.query.manager'
+    tags: { - name: form.type }
+
+  Evrinoma\HeaderBundle\Form\Rest\HeaderTagChoiceType:
+    alias: evrinoma.header.form.rest.tag
+    public: true
+
+  evrinoma.header.object.registry:
+    class: Evrinoma\HeaderBundle\Registry\ObjectRegistry
+    public: true
+    arguments:
+
+  Evrinoma\HeaderBundle\Registry\ObjectRegistryInterface:
+    alias: evrinoma.header.object.registry
+
+  evrinoma.header.provider.dto:
+    class: Evrinoma\HeaderBundle\Provider\DtoProvider
+    public: true
+    arguments:
+      - '@evrinoma.header.object.registry'

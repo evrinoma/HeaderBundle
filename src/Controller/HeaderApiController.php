@@ -26,6 +26,7 @@ use Evrinoma\HeaderBundle\Serializer\GroupInterface;
 use Evrinoma\UtilsBundle\Controller\AbstractWrappedApiController;
 use Evrinoma\UtilsBundle\Controller\ApiControllerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Nelmio\ApiDocBundle\Annotation\Model;
 use JMS\Serializer\SerializerInterface;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -211,6 +212,19 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
      *             type="string",
      *             default="app.basic.contr_agent",
      *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="tag",
+     *         in="query",
+     *         description="tag header",
+     *         @OA\Schema(
+     *             type="array",
+     *             @OA\Items(
+     *                 type="string",
+     *                 ref=@Model(type=Evrinoma\HeaderBundle\Form\Rest\HeaderTagChoiceType::class),
+     *             ),
+     *         ),
+     *         style="form"
      *     )
      * )
      * @OA\Response(response=200, description="Return headers")
@@ -281,6 +295,55 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
         }
 
         return $this->setSerializeGroup($group)->JsonResponse('Get header', $json, $error);
+    }
+
+    /**
+     * @Rest\Post("/api/header/registry/create", name="api_registry_create_header")
+     * @OA\Post(tags={"header"})
+     * @OA\Response(response=200, description="Returns the rewards of default generated header")
+     *
+     * @return JsonResponse
+     */
+    public function registryAction(): JsonResponse
+    {
+        $this->setStatusCreated();
+
+        $json = [];
+        $error = [];
+        $group = GroupInterface::API_POST_REGISTRY_HEADER;
+
+        try {
+            $this->facade->registry($group, $json);
+        } catch (\Exception $e) {
+            $error = $this->setRestStatus($e);
+        }
+
+        return $this->setSerializeGroup($group)->JsonResponse('Create header from registry', $json, $error);
+    }
+
+    /**
+     * @Rest\Delete("/api/header/remove", options={"expose": true}, name="api_remove_header")
+     * @OA\Delete(
+     *     tags={"header"}
+     * )
+     * @OA\Response(response=200, description="Remove all header items")
+     *
+     * @return JsonResponse
+     */
+    public function removeAction(): JsonResponse
+    {
+        $this->setStatusAccepted();
+
+        $json = [];
+        $error = [];
+
+        try {
+            $this->facade->remove(new $this->dtoClass(), '', $json);
+        } catch (\Exception $e) {
+            $error = $this->setRestStatus($e);
+        }
+
+        return $this->JsonResponse('Remove all items', $json, $error);
     }
 
     /**

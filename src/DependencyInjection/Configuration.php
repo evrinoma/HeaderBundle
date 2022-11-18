@@ -47,6 +47,7 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('entity')->cannotBeEmpty()->defaultValue(EvrinomaHeaderExtension::ENTITY_BASE_HEADER)->end()
             ->scalarNode('constraints')->defaultTrue()->info('This option is used to enable/disable basic header constraints')->end()
             ->scalarNode('dto')->cannotBeEmpty()->defaultValue(EvrinomaHeaderExtension::DTO_BASE_HEADER)->info('This option is used to dto class override')->end()
+            ->scalarNode('preserve_dto')->cannotBeEmpty()->defaultValue(EvrinomaHeaderExtension::DTO_PRESERVE_BASE_HEADER)->info('This option is used to preserve_dto class override')->end()
             ->arrayNode('decorates')->addDefaultsIfNotSet()->children()
             ->scalarNode('command')->defaultNull()->info('This option is used to command header decoration')->end()
             ->scalarNode('query')->defaultNull()->info('This option is used to query header decoration')->end()

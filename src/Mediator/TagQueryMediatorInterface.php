@@ -16,26 +16,21 @@ namespace Evrinoma\HeaderBundle\Mediator;
 use Evrinoma\HeaderBundle\Dto\HeaderApiDtoInterface;
 use Evrinoma\UtilsBundle\QueryBuilder\QueryBuilderInterface;
 
-interface QueryMediatorInterface extends TagQueryMediatorInterface
+interface TagQueryMediatorInterface
 {
     /**
-     * @return string
-     */
-    public function alias(): string;
-
-    /**
-     * @param HeaderApiDtoInterface $dto
+     * @param HeaderApiDtoInterface   $dto
      * @param QueryBuilderInterface $builder
      *
      * @return mixed
      */
-    public function createQuery(HeaderApiDtoInterface $dto, QueryBuilderInterface $builder): void;
+    public function createQueryTag(HeaderApiDtoInterface $dto, QueryBuilderInterface $builder): void;
 
     /**
-     * @param HeaderApiDtoInterface $dto
+     * @param HeaderApiDtoInterface   $dto
      * @param QueryBuilderInterface $builder
      *
      * @return array
      */
-    public function getResult(HeaderApiDtoInterface $dto, QueryBuilderInterface $builder): array;
+    public function getResultTag(HeaderApiDtoInterface $dto, QueryBuilderInterface $builder): array;
 }

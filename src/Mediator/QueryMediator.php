@@ -49,4 +49,18 @@ class QueryMediator extends AbstractQueryMediator implements QueryMediatorInterf
                 ->setParameter('identity', '%'.$dto->getIdentity().'%');
         }
     }
+
+    public function createQueryTag(HeaderApiDtoInterface $dto, QueryBuilderInterface $builder): void
+    {
+        $alias = $this->alias();
+
+        $builder
+            ->select($alias.'.tag')
+            ->groupBy($alias.'.tag');
+    }
+
+    public function getResultTag(HeaderApiDtoInterface $dto, QueryBuilderInterface $builder): array
+    {
+        return array_column($this->getResult($dto, $builder), 'tag');
+    }
 }

@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Evrinoma\HeaderBundle\DependencyInjection;
 
-
 use Evrinoma\HeaderBundle\DependencyInjection\Compiler\Constraint\Property\HeaderPass;
 use Evrinoma\HeaderBundle\Dto\HeaderApiDto;
+use Evrinoma\HeaderBundle\Dto\Preserve\HeaderApiDto as PreserveHeaderApiDto;
 use Evrinoma\HeaderBundle\Entity\Header\BaseHeader;
 use Evrinoma\HeaderBundle\EvrinomaHeaderBundle;
 use Evrinoma\HeaderBundle\Factory\HeaderFactory;
@@ -40,7 +40,18 @@ class EvrinomaHeaderExtension extends Extension
     public const ENTITY_FACTORY_HEADER = HeaderFactory::class;
     public const ENTITY_BASE_HEADER = BaseHeader::class;
     public const DTO_BASE_HEADER = HeaderApiDto::class;
+    public const DTO_PRESERVE_BASE_HEADER = PreserveHeaderApiDto::class;
     public const HANDLER = BaseHandler::class;
+
+    /**
+     * @var array
+     */
+    private static array $doctrineDrivers = [
+        'orm' => [
+            'registry' => 'doctrine',
+            'tag' => 'doctrine.event_subscriber',
+        ],
+    ];
 
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -76,6 +87,10 @@ class EvrinomaHeaderExtension extends Extension
             $objectManager->setFactory([$registry, 'getManager']);
         }
 
+        if (isset(self::$doctrineDrivers[$config['db_driver']]) && 'api' === $config['db_driver']) {
+            //@ToDo
+        }
+
         $this->remapParametersNamespaces(
             $container,
             $config,
@@ -88,7 +103,7 @@ class EvrinomaHeaderExtension extends Extension
         );
 
         if ($registry) {
-            $this->wireRepository($container, $registry, $config['entity']);
+            $this->wireRepository($container, $registry, $config['entity'], $config['db_driver']);
         }
 
         $this->wireController($container, $config['dto']);
@@ -158,13 +173,14 @@ class EvrinomaHeaderExtension extends Extension
         }
     }
 
-    private function wireRepository(ContainerBuilder $container, Reference $registry, string $class): void
+    private function wireRepository(ContainerBuilder $container, Reference $registry, string $class, string $driver): void
     {
-        $definitionRepository = $container->getDefinition('evrinoma.'.$this->getAlias().'.repository');
+        $definitionRepository = $container->getDefinition('evrinoma.'.$this->getAlias().'.'.$driver.'.repository');
         $definitionQueryMediator = $container->getDefinition('evrinoma.'.$this->getAlias().'.query.mediator');
         $definitionRepository->setArgument(0, $registry);
         $definitionRepository->setArgument(1, $class);
         $definitionRepository->setArgument(2, $definitionQueryMediator);
+        $container->addAliases(['evrinoma.'.$this->getAlias().'.repository' => 'evrinoma.'.$this->getAlias().'.'.$driver.'.repository']);
         $container->addAliases([HeaderCommandRepositoryInterface::class => 'evrinoma.'.$this->getAlias().'.repository']);
         $container->addAliases([HeaderQueryRepositoryInterface::class => 'evrinoma.'.$this->getAlias().'.repository']);
     }

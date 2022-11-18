@@ -18,4 +18,15 @@ use Evrinoma\UtilsBundle\Entity\IdInterface;
 
 interface HeaderInterface extends IdInterface, IdentityInterface
 {
+    /**
+     * @return string
+     */
+    public function getTag(): string;
+
+    /**
+     * @param string $tag
+     *
+     * @return HeaderInterface
+     */
+    public function setTag(string $tag): HeaderInterface;
 }

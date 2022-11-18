@@ -35,7 +35,7 @@ class MapEntityPass extends AbstractMapEntity implements CompilerPassInterface
 
             $this->cleanMetadata($driver, [EvrinomaHeaderExtension::ENTITY]);
 
-            $entityHeader = $container->getParameter('evrinoma.fcr.entity');
+            $entityHeader = $container->getParameter('evrinoma.header.entity');
             if (str_contains($entityHeader, EvrinomaHeaderExtension::ENTITY)) {
                 $this->loadMetadata($driver, $referenceAnnotationReader, '%s/Model/Header', '%s/Entity/Header');
             }

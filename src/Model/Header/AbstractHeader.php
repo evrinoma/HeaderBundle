@@ -28,4 +28,30 @@ abstract class AbstractHeader implements HeaderInterface
 {
     use IdentityTrait;
     use IdTrait;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tag", type="string")
+     */
+    protected string $tag;
+
+    /**
+     * @return string
+     */
+    public function getTag(): string
+    {
+        return $this->tag;
+    }
+
+    /**
+     * @param string $tag
+     *
+     * @return HeaderInterface
+     */
+    public function setTag(string $tag): HeaderInterface
+    {
+        $this->tag = $tag;
+
+        return $this;
+    }
 }

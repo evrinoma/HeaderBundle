@@ -85,4 +85,22 @@ final class QueryManager implements QueryManagerInterface
 
         return $header;
     }
+
+    /**
+     * @param HeaderApiDtoInterface $dto
+     *
+     * @return array
+     *
+     * @throws HeaderNotFoundException
+     */
+    public function tags(HeaderApiDtoInterface $dto): array
+    {
+        try {
+            $tags = $this->repository->findTags($dto);
+        } catch (HeaderNotFoundException $e) {
+            throw $e;
+        }
+
+        return $tags;
+    }
 }

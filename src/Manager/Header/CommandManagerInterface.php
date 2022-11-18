@@ -47,4 +47,12 @@ interface CommandManagerInterface
      * @throws HeaderNotFoundException
      */
     public function delete(HeaderApiDtoInterface $dto): void;
+
+    /**
+     * @param HeaderApiDtoInterface $dto
+     *
+     * @throws HeaderCannotBeRemovedException
+     * @throws HeaderNotFoundException
+     */
+    public function remove(HeaderApiDtoInterface $dto): void;
 }

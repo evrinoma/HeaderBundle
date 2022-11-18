@@ -19,4 +19,5 @@ interface GroupInterface
     public const API_PUT_HEADER = 'API_PUT_HEADER';
     public const API_GET_HEADER = 'API_GET_HEADER';
     public const API_CRITERIA_HEADER = self::API_GET_HEADER;
+    public const API_POST_REGISTRY_HEADER = 'API_POST_REGISTRY_HEADER';
 }

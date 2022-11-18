@@ -86,7 +86,7 @@ final class CommandManager implements CommandManagerInterface
     public function put(HeaderApiDtoInterface $dto): HeaderInterface
     {
         try {
-            $header = $this->repository->find($dto->getId());
+            $header = $this->repository->find($dto->idToString());
         } catch (HeaderNotFoundException $e) {
             throw $e;
         }
@@ -115,7 +115,7 @@ final class CommandManager implements CommandManagerInterface
     public function delete(HeaderApiDtoInterface $dto): void
     {
         try {
-            $header = $this->repository->find($dto->getId());
+            $header = $this->repository->find($dto->idToString());
         } catch (HeaderNotFoundException $e) {
             throw $e;
         }
@@ -124,6 +124,29 @@ final class CommandManager implements CommandManagerInterface
             $this->repository->remove($header);
         } catch (HeaderCannotBeRemovedException $e) {
             throw $e;
+        }
+    }
+
+    /**
+     * @param HeaderApiDtoInterface $dto
+     *
+     * @throws HeaderCannotBeRemovedException
+     * @throws HeaderNotFoundException
+     */
+    public function remove(HeaderApiDtoInterface $dto): void
+    {
+        try {
+            $menuItems = $this->repository->findByCriteria($dto);
+        } catch (HeaderNotFoundException $e) {
+            throw $e;
+        }
+        foreach ($menuItems as $menu) {
+            $this->mediator->onDelete($dto, $menu);
+            try {
+                $this->repository->remove($menu);
+            } catch (HeaderCannotBeRemovedException $e) {
+                throw $e;
+            }
         }
     }
 }

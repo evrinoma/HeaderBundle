@@ -46,4 +46,13 @@ interface QueryManagerInterface
      * @throws HeaderProxyException
      */
     public function proxy(HeaderApiDtoInterface $dto): HeaderInterface;
+
+    /**
+     * @param HeaderApiDtoInterface $dto
+     *
+     * @return array
+     *
+     * @throws HeaderNotFoundException
+     */
+    public function tags(HeaderApiDtoInterface $dto): array;
 }
