@@ -19,7 +19,7 @@ use Evrinoma\UtilsBundle\QueryBuilder\QueryBuilderInterface;
 interface TagQueryMediatorInterface
 {
     /**
-     * @param HeaderApiDtoInterface   $dto
+     * @param HeaderApiDtoInterface $dto
      * @param QueryBuilderInterface $builder
      *
      * @return mixed
@@ -27,7 +27,7 @@ interface TagQueryMediatorInterface
     public function createQueryTag(HeaderApiDtoInterface $dto, QueryBuilderInterface $builder): void;
 
     /**
-     * @param HeaderApiDtoInterface   $dto
+     * @param HeaderApiDtoInterface $dto
      * @param QueryBuilderInterface $builder
      *
      * @return array

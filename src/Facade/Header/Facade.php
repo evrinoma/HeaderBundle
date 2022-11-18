@@ -105,7 +105,6 @@ final class Facade implements FacadeInterface
                 $item->setId($headerItem->getId());
             }
             $connection->commit();
-
         } catch (\Exception $e) {
             $connection->rollBack();
             throw $e;

@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Evrinoma\HeaderBundle;
 
-
 use Evrinoma\HeaderBundle\DependencyInjection\Compiler\DecoratorPass;
 use Evrinoma\HeaderBundle\DependencyInjection\Compiler\MapEntityPass;
 use Evrinoma\HeaderBundle\DependencyInjection\Compiler\ObjectRegistryPass;

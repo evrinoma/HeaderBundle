@@ -24,7 +24,6 @@ use Evrinoma\HeaderBundle\Exception\HeaderTagNotFoundException;
 use Evrinoma\HeaderBundle\Mediator\QueryMediatorInterface;
 use Evrinoma\HeaderBundle\Model\Header\HeaderInterface;
 
-
 trait HeaderRepositoryTrait
 {
     private QueryMediatorInterface $mediator;

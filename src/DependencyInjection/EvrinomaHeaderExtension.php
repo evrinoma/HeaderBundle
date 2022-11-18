@@ -88,7 +88,7 @@ class EvrinomaHeaderExtension extends Extension
         }
 
         if (isset(self::$doctrineDrivers[$config['db_driver']]) && 'api' === $config['db_driver']) {
-            //@ToDo
+            // @ToDo
         }
 
         $this->remapParametersNamespaces(
