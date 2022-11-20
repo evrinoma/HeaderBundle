@@ -136,14 +136,14 @@ final class CommandManager implements CommandManagerInterface
     public function remove(HeaderApiDtoInterface $dto): void
     {
         try {
-            $menuItems = $this->repository->findByCriteria($dto);
+            $headerItems = $this->repository->findByCriteria($dto);
         } catch (HeaderNotFoundException $e) {
             throw $e;
         }
-        foreach ($menuItems as $menu) {
-            $this->mediator->onDelete($dto, $menu);
+        foreach ($headerItems as $header) {
+            $this->mediator->onDelete($dto, $header);
             try {
-                $this->repository->remove($menu);
+                $this->repository->remove($header);
             } catch (HeaderCannotBeRemovedException $e) {
                 throw $e;
             }

@@ -29,17 +29,17 @@ trait HeaderRepositoryTrait
     private QueryMediatorInterface $mediator;
 
     /**
-     * @param HeaderInterface $menu
+     * @param HeaderInterface $header
      *
      * @return bool
      *
      * @throws HeaderCannotBeSavedException
      * @throws ORMException
      */
-    public function save(HeaderInterface $menu): bool
+    public function save(HeaderInterface $header): bool
     {
         try {
-            $this->persistWrapped($menu);
+            $this->persistWrapped($header);
         } catch (ORMInvalidArgumentException $e) {
             throw new HeaderCannotBeSavedException($e->getMessage());
         }
@@ -48,17 +48,17 @@ trait HeaderRepositoryTrait
     }
 
     /**
-     * @param HeaderInterface $menu
+     * @param HeaderInterface $header
      *
      * @return bool
      *
      * @throws HeaderCannotBeRemovedException
      * @throws ORMException
      */
-    public function remove(HeaderInterface $menu): bool
+    public function remove(HeaderInterface $header): bool
     {
         try {
-            $this->removeWrapped($menu);
+            $this->removeWrapped($header);
         } catch (ORMInvalidArgumentException $e) {
             throw new HeaderCannotBeRemovedException($e->getMessage());
         }
@@ -79,13 +79,13 @@ trait HeaderRepositoryTrait
 
         $this->mediator->createQuery($dto, $builder);
 
-        $menus = $this->mediator->getResult($dto, $builder);
+        $headers = $this->mediator->getResult($dto, $builder);
 
-        if (0 === \count($menus)) {
-            throw new HeaderNotFoundException('Cannot find menu by findByCriteria');
+        if (0 === \count($headers)) {
+            throw new HeaderNotFoundException('Cannot find header by findByCriteria');
         }
 
-        return $menus;
+        return $headers;
     }
 
     /**
@@ -99,14 +99,14 @@ trait HeaderRepositoryTrait
      */
     public function find($id, $lockMode = null, $lockVersion = null): HeaderInterface
     {
-        /** @var HeaderInterface $menu */
-        $menu = $this->findWrapped($id);
+        /** @var HeaderInterface $header */
+        $header = $this->findWrapped($id);
 
-        if (null === $menu) {
-            throw new HeaderNotFoundException("Cannot find menu with id $id");
+        if (null === $header) {
+            throw new HeaderNotFoundException("Cannot find header with id $id");
         }
 
-        return $menu;
+        return $header;
     }
 
     /**
@@ -119,13 +119,13 @@ trait HeaderRepositoryTrait
      */
     public function proxy(string $id): HeaderInterface
     {
-        $menu = $this->referenceWrapped($id);
+        $header = $this->referenceWrapped($id);
 
-        if (!$this->containsWrapped($menu)) {
+        if (!$this->containsWrapped($header)) {
             throw new HeaderProxyException("Proxy doesn't exist with $id");
         }
 
-        return $menu;
+        return $header;
     }
 
     /**

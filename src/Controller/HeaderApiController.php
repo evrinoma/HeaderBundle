@@ -189,6 +189,31 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
     }
 
     /**
+     * @Rest\Delete("/api/header/remove", options={"expose": true}, name="api_remove_header")
+     * @OA\Delete(
+     *     tags={"header"}
+     * )
+     * @OA\Response(response=200, description="Remove all header items")
+     *
+     * @return JsonResponse
+     */
+    public function removeAction(): JsonResponse
+    {
+        $this->setStatusAccepted();
+
+        $json = [];
+        $error = [];
+
+        try {
+            $this->facade->remove(new $this->dtoClass(), '', $json);
+        } catch (\Exception $e) {
+            $error = $this->setRestStatus($e);
+        }
+
+        return $this->JsonResponse('Remove all items', $json, $error);
+    }
+
+    /**
      * @Rest\Get("/api/header/criteria", options={"expose": true}, name="api_header_criteria")
      * @OA\Get(
      *     tags={"header"},
@@ -319,31 +344,6 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
         }
 
         return $this->setSerializeGroup($group)->JsonResponse('Create header from registry', $json, $error);
-    }
-
-    /**
-     * @Rest\Delete("/api/header/remove", options={"expose": true}, name="api_remove_header")
-     * @OA\Delete(
-     *     tags={"header"}
-     * )
-     * @OA\Response(response=200, description="Remove all header items")
-     *
-     * @return JsonResponse
-     */
-    public function removeAction(): JsonResponse
-    {
-        $this->setStatusAccepted();
-
-        $json = [];
-        $error = [];
-
-        try {
-            $this->facade->remove(new $this->dtoClass(), '', $json);
-        } catch (\Exception $e) {
-            $error = $this->setRestStatus($e);
-        }
-
-        return $this->JsonResponse('Remove all items', $json, $error);
     }
 
     /**

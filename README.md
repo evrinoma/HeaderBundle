@@ -19,9 +19,9 @@ Actions в контроллере разбиты на две группы соз
 
 группы сериализации
 
-    1. API_GET_MENU, API_CRITERIA_MENU - получение заголовков
-    2. API_POST_MENU - создание заголовков
-    3. API_PUT_MENU -  редактирование заголовков
+    1. API_GET_HEADER, API_CRITERIA_HEADER - получение заголовков
+    2. API_POST_HEADER - создание заголовков
+    3. API_PUT_HEADER -  редактирование заголовков
 
 # Статусы:
 

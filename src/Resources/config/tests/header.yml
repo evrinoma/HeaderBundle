@@ -1,1 +1,9 @@
 services:
+  evrinoma.header.test.functional.action.header:
+    class: Evrinoma\HeaderBundle\Tests\Functional\Action\BaseHeader
+    public: true
+    arguments:
+
+  Evrinoma\HeaderBundle\Tests\Functional\Action\BaseHeader:
+    alias: evrinoma.header.test.functional.action.header
+    public: true

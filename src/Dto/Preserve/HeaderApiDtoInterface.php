@@ -15,7 +15,8 @@ namespace Evrinoma\HeaderBundle\Dto\Preserve;
 
 use Evrinoma\DtoCommon\ValueObject\Mutable\IdentityInterface;
 use Evrinoma\DtoCommon\ValueObject\Mutable\IdInterface;
+use Evrinoma\HeaderBundle\DtoCommon\ValueObject\Mutable\TagInterface;
 
-interface HeaderApiDtoInterface extends IdInterface, IdentityInterface
+interface HeaderApiDtoInterface extends IdInterface, IdentityInterface, TagInterface
 {
 }
