@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Evrinoma\HeaderBundle\Tests\Functional\Controller;
 
+use Evrinoma\HeaderBundle\Fixtures\FixtureInterface;
 use Evrinoma\TestUtilsBundle\Action\ActionTestInterface;
 use Evrinoma\TestUtilsBundle\Functional\AbstractFunctionalTest;
 use Psr\Container\ContainerInterface;
@@ -31,6 +32,6 @@ final class ApiControllerTest extends AbstractFunctionalTest
 
     public static function getFixtures(): array
     {
-        return [];
+        return [FixtureInterface::HEADER_FIXTURES];
     }
 }

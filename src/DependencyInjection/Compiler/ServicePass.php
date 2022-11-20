@@ -36,7 +36,7 @@ class ServicePass extends AbstractRecursivePass
             $serviceHandler = $container->getParameter('evrinoma.'.EvrinomaHeaderBundle::BUNDLE.'.services.handler');
             $handler = $container->getDefinition($serviceHandler);
             $facade = $container->getDefinition('evrinoma.'.EvrinomaHeaderBundle::BUNDLE.'.facade');
-            $facade->setArgument(4, $handler);
+            $facade->setArgument(5, $handler);
         }
     }
 }

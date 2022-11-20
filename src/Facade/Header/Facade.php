@@ -56,26 +56,6 @@ final class Facade implements FacadeInterface
         $this->provider = $provider;
     }
 
-    public function post(DtoInterface $dto, string $group, array &$data): void
-    {
-        throw new HeaderCannotBeCreatedException();
-    }
-
-    public function put(DtoInterface $dto, string $group, array &$data): void
-    {
-        throw new HeaderCannotBeSavedException();
-    }
-
-    public function delete(DtoInterface $dto, string $group, array &$data): void
-    {
-        throw new HeaderCannotBeRemovedException();
-    }
-
-    public function get(DtoInterface $dto, string $group, array &$data): void
-    {
-        throw new HeaderNotFoundException();
-    }
-
     public function remove(DtoInterface $dto, string $group, array &$data): void
     {
         $em = $this->managerRegistry->getManager();

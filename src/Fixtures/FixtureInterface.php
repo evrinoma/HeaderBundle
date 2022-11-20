@@ -11,12 +11,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Evrinoma\HeaderBundle\Tests\Functional\ValueObject\Header;
+namespace Evrinoma\HeaderBundle\Fixtures;
 
-use Evrinoma\TestUtilsBundle\ValueObject\Common\AbstractId;
-
-class Id extends AbstractId
+interface FixtureInterface
 {
-    protected static string $default = '4';
-    protected static string $value = '2';
+    public const HEADER_FIXTURES = 'HEADER_FIXTURES';
 }

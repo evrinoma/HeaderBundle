@@ -25,7 +25,7 @@ class CommandMediator extends AbstractCommandMediator implements CommandMediator
         /* @var $dto HeaderApiDtoInterface */
         $entity
             ->setIdentity($dto->getIdentity())
-            ->setId($dto->getId());
+            ->setTag($dto->getTag());
 
         return $entity;
     }
@@ -38,7 +38,8 @@ class CommandMediator extends AbstractCommandMediator implements CommandMediator
     {
         /* @var $dto HeaderApiDtoInterface */
         $entity
-            ->setIdentity($dto->getIdentity());
+            ->setIdentity($dto->getIdentity())
+            ->setTag($dto->getTag());
 
         return $entity;
     }

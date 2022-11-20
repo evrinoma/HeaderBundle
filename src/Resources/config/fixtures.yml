@@ -1,2 +1,5 @@
 services:
-
+  evrinoma.header.fixtures.menu:
+    class: Evrinoma\HeaderBundle\Fixtures\HeaderFixtures
+    tags:
+      - { name: doctrine.fixture.orm }
