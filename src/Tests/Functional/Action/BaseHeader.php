@@ -15,7 +15,6 @@ namespace Evrinoma\HeaderBundle\Tests\Functional\Action;
 
 use Evrinoma\HeaderBundle\Dto\HeaderApiDto;
 use Evrinoma\HeaderBundle\Dto\HeaderApiDtoInterface;
-use Evrinoma\HeaderBundle\Registry\ObjectInterface;
 use Evrinoma\HeaderBundle\Tests\Functional\Helper\BaseHeaderTestTrait;
 use Evrinoma\HeaderBundle\Tests\Functional\ValueObject\Header\Id;
 use Evrinoma\HeaderBundle\Tests\Functional\ValueObject\Header\Identity;

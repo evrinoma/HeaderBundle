@@ -15,7 +15,7 @@ namespace Evrinoma\HeaderBundle\Tests\Functional\Controller;
 
 use Evrinoma\HeaderBundle\Fixtures\FixtureInterface;
 use Evrinoma\TestUtilsBundle\Action\ActionTestInterface;
-use Evrinoma\TestUtilsBundle\Functional\AbstractFunctionalTest;
+use Evrinoma\TestUtilsBundle\Functional\Orm\AbstractFunctionalTest;
 use Psr\Container\ContainerInterface;
 
 /**
