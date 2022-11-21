@@ -15,7 +15,7 @@ namespace Evrinoma\HeaderBundle\Dto\Preserve;
 
 use Evrinoma\DtoCommon\ValueObject\Preserve\IdentityTrait;
 use Evrinoma\DtoCommon\ValueObject\Preserve\IdTrait;
-use Evrinoma\HeaderBundle\DtoCommon\ValueObject\Mutable\TagTrait;
+use Evrinoma\HeaderBundle\DtoCommon\ValueObject\Preserve\TagTrait;
 
 trait HeaderApiDtoTrait
 {
