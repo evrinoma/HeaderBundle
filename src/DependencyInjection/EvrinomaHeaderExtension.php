@@ -21,6 +21,8 @@ use Evrinoma\HeaderBundle\EvrinomaHeaderBundle;
 use Evrinoma\HeaderBundle\Factory\HeaderFactory;
 use Evrinoma\HeaderBundle\Repository\Header\HeaderCommandRepositoryInterface;
 use Evrinoma\HeaderBundle\Repository\Header\HeaderQueryRepositoryInterface;
+use Evrinoma\UtilsBundle\Adaptor\AdaptorRegistry;
+use Evrinoma\UtilsBundle\Adaptor\AdaptorRegistryInterface;
 use Evrinoma\UtilsBundle\DependencyInjection\HelperTrait;
 use Evrinoma\UtilsBundle\Handler\BaseHandler;
 use Symfony\Component\Config\FileLocator;
@@ -91,6 +93,10 @@ class EvrinomaHeaderExtension extends Extension
             // @ToDo
         }
 
+        if (null !== $registry) {
+            $this->wireAdaptorRegistry($container, $registry);
+        }
+
         $this->remapParametersNamespaces(
             $container,
             $config,
@@ -159,6 +165,15 @@ class EvrinomaHeaderExtension extends Extension
                 ['' => $remap]
             );
         }
+    }
+
+    private function wireAdaptorRegistry(ContainerBuilder $container, Reference $registry): void
+    {
+        $definitionAdaptor = new Definition(AdaptorRegistry::class);
+        $definitionAdaptor->addArgument($registry);
+        $alias = new Alias('evrinoma.'.$this->getAlias().'.adaptor');
+        $container->addDefinitions(['evrinoma.'.$this->getAlias().'.adaptor' => $definitionAdaptor]);
+        $container->addAliases([AdaptorRegistryInterface::class => $alias]);
     }
 
     private function wireConstraintTag(ContainerBuilder $container): void

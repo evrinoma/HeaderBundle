@@ -15,7 +15,6 @@ services:
   evrinoma.header.facade:
     class: Evrinoma\HeaderBundle\Facade\Header\Facade
     arguments:
-      - '@doctrine'
       - '@evrinoma.header.command.manager'
       - '@evrinoma.header.query.manager'
       - '@evrinoma.header.provider.dto'
