@@ -19,6 +19,7 @@ use Evrinoma\HeaderBundle\Dto\Preserve\HeaderApiDto as PreserveHeaderApiDto;
 use Evrinoma\HeaderBundle\Entity\Header\BaseHeader;
 use Evrinoma\HeaderBundle\EvrinomaHeaderBundle;
 use Evrinoma\HeaderBundle\Factory\HeaderFactory;
+use Evrinoma\HeaderBundle\Mediator\QueryMediatorInterface;
 use Evrinoma\HeaderBundle\Repository\Header\HeaderCommandRepositoryInterface;
 use Evrinoma\HeaderBundle\Repository\Header\HeaderQueryRepositoryInterface;
 use Evrinoma\UtilsBundle\Adaptor\AdaptorRegistry;
@@ -93,6 +94,8 @@ class EvrinomaHeaderExtension extends Extension
             // @ToDo
         }
 
+        $this->wireMediator($container, QueryMediatorInterface::class, $config['db_driver']);
+
         if (null !== $registry) {
             $this->wireAdaptorRegistry($container, $registry);
         }
@@ -109,7 +112,7 @@ class EvrinomaHeaderExtension extends Extension
         );
 
         if ($registry && isset(self::$doctrineDrivers[$config['db_driver']])) {
-            $this->wireRepository($container, $registry, $config['entity'], $config['db_driver']);
+            $this->wireRepository($container, $registry, QueryMediatorInterface::class, $config['entity'], $config['db_driver']);
         }
 
         $this->wireController($container, $config['dto']);
@@ -167,6 +170,12 @@ class EvrinomaHeaderExtension extends Extension
         }
     }
 
+    private function wireMediator(ContainerBuilder $container, string $class, string $driver): void
+    {
+        $definitionQueryMediator = $container->getDefinition('evrinoma.'.$this->getAlias().'.query.'.$driver.'.mediator');
+        $container->addDefinitions([$class => $definitionQueryMediator]);
+    }
+
     private function wireAdaptorRegistry(ContainerBuilder $container, Reference $registry): void
     {
         $definitionAdaptor = new Definition(AdaptorRegistry::class);
@@ -188,10 +197,10 @@ class EvrinomaHeaderExtension extends Extension
         }
     }
 
-    private function wireRepository(ContainerBuilder $container, Reference $registry, string $class, string $driver): void
+    private function wireRepository(ContainerBuilder $container, Reference $registry, string $madiator, string $class, string $driver): void
     {
         $definitionRepository = $container->getDefinition('evrinoma.'.$this->getAlias().'.'.$driver.'.repository');
-        $definitionQueryMediator = $container->getDefinition('evrinoma.'.$this->getAlias().'.query.mediator');
+        $definitionQueryMediator = $container->getDefinition($madiator);
         $definitionRepository->setArgument(0, $registry);
         $definitionRepository->setArgument(1, $class);
         $definitionRepository->setArgument(2, $definitionQueryMediator);

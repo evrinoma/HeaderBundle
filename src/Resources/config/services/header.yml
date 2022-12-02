@@ -65,16 +65,13 @@ services:
   Evrinoma\HeaderBundle\Validator\HeaderValidator:
     alias: evrinoma.header.validator
 
-  evrinoma.header.query.mediator:
-    class: Evrinoma\HeaderBundle\Mediator\QueryMediator
+  evrinoma.header.query.or.mediator:
+    class: Evrinoma\HeaderBundle\Mediator\Orm\QueryMediator
     public: true
     arguments:
 
-  Evrinoma\HeaderBundle\Mediator\QueryMediator:
-    alias: evrinoma.header.query.mediator
-
-  Evrinoma\HeaderBundle\Mediator\QueryMediatorInterface:
-    alias: evrinoma.header.query.mediator
+  Evrinoma\HeaderBundle\Mediator\Orm\QueryMediator:
+    alias: evrinoma.header.query.orm.mediator
 
   evrinoma.header.command.mediator:
     class: Evrinoma\HeaderBundle\Mediator\CommandMediator
