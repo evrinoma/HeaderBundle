@@ -18,6 +18,7 @@ services:
       - '@evrinoma.header.command.manager'
       - '@evrinoma.header.query.manager'
       - '@evrinoma.header.provider.dto'
+      - '@evrinoma.header.adaptor'
     autowire: true
 
   Evrinoma\HeaderBundle\Facade\Header\FacadeInterface:
