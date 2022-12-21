@@ -18,7 +18,7 @@ use Evrinoma\HeaderBundle\Dto\HeaderApiDto;
 use Evrinoma\HeaderBundle\Dto\Preserve\HeaderApiDto as PreserveHeaderApiDto;
 use Evrinoma\HeaderBundle\Entity\Header\BaseHeader;
 use Evrinoma\HeaderBundle\EvrinomaHeaderBundle;
-use Evrinoma\HeaderBundle\Factory\HeaderFactory;
+use Evrinoma\HeaderBundle\Factory\Header\Factory as HeaderFactory;
 use Evrinoma\HeaderBundle\Mediator\QueryMediatorInterface;
 use Evrinoma\HeaderBundle\Repository\Header\HeaderCommandRepositoryInterface;
 use Evrinoma\HeaderBundle\Repository\Header\HeaderQueryRepositoryInterface;

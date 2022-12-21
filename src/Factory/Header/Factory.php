@@ -11,13 +11,13 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Evrinoma\HeaderBundle\Factory;
+namespace Evrinoma\HeaderBundle\Factory\Header;
 
 use Evrinoma\HeaderBundle\Dto\HeaderApiDtoInterface;
 use Evrinoma\HeaderBundle\Entity\Header\BaseHeader;
 use Evrinoma\HeaderBundle\Model\Header\HeaderInterface;
 
-class HeaderFactory implements HeaderFactoryInterface
+class Factory implements FactoryInterface
 {
     private static string $entityClass = BaseHeader::class;
 

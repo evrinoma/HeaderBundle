@@ -19,7 +19,7 @@ use Evrinoma\HeaderBundle\Exception\HeaderCannotBeRemovedException;
 use Evrinoma\HeaderBundle\Exception\HeaderCannotBeSavedException;
 use Evrinoma\HeaderBundle\Exception\HeaderInvalidException;
 use Evrinoma\HeaderBundle\Exception\HeaderNotFoundException;
-use Evrinoma\HeaderBundle\Factory\HeaderFactoryInterface;
+use Evrinoma\HeaderBundle\Factory\Header\FactoryInterface;
 use Evrinoma\HeaderBundle\Mediator\CommandMediatorInterface;
 use Evrinoma\HeaderBundle\Model\Header\HeaderInterface;
 use Evrinoma\HeaderBundle\Repository\Header\HeaderRepositoryInterface;
@@ -29,16 +29,16 @@ final class CommandManager implements CommandManagerInterface
 {
     private HeaderRepositoryInterface $repository;
     private ValidatorInterface $validator;
-    private HeaderFactoryInterface $factory;
+    private FactoryInterface $factory;
     private CommandMediatorInterface $mediator;
 
     /**
      * @param ValidatorInterface        $validator
      * @param HeaderRepositoryInterface $repository
-     * @param HeaderFactoryInterface    $factory
+     * @param FactoryInterface          $factory
      * @param CommandMediatorInterface  $mediator
      */
-    public function __construct(ValidatorInterface $validator, HeaderRepositoryInterface $repository, HeaderFactoryInterface $factory, CommandMediatorInterface $mediator)
+    public function __construct(ValidatorInterface $validator, HeaderRepositoryInterface $repository, FactoryInterface $factory, CommandMediatorInterface $mediator)
     {
         $this->validator = $validator;
         $this->repository = $repository;

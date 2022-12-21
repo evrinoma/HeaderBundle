@@ -25,7 +25,7 @@ services:
     alias: evrinoma.header.facade
 
   evrinoma.header.factory:
-    class: Evrinoma\HeaderBundle\Factory\HeaderFactory
+    class: Evrinoma\HeaderBundle\Factory\Header\Factory
     public: true
     arguments:
 

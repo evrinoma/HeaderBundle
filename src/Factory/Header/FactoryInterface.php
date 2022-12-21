@@ -11,12 +11,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Evrinoma\HeaderBundle\Factory;
+namespace Evrinoma\HeaderBundle\Factory\Header;
 
 use Evrinoma\HeaderBundle\Dto\HeaderApiDtoInterface;
 use Evrinoma\HeaderBundle\Model\Header\HeaderInterface;
 
-interface HeaderFactoryInterface
+interface FactoryInterface
 {
     /**
      * @param HeaderApiDtoInterface $dto
