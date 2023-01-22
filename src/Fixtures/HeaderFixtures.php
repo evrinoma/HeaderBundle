@@ -84,7 +84,7 @@ class HeaderFixtures extends AbstractFixture implements FixtureGroupInterface, O
                 ->setIdentity($record[HeaderApiDtoInterface::IDENTITY])
                 ->setTag($record[HeaderApiDtoInterface::TAG]);
 
-            $this->expandEntity($entity);
+            $this->expandEntity($entity, $record);
 
             $this->addReference($referenceName.$i, $entity);
             $manager->persist($entity);
