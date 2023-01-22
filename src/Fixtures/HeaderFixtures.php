@@ -69,7 +69,7 @@ class HeaderFixtures extends AbstractFixture implements FixtureGroupInterface, O
         $referenceName = self::getReferenceName();
         $i = 0;
 
-        $this->entityGenerator($manager, $referenceName, $i, static::$data);
+        $this->entityGenerator($manager, $referenceName, $i, $this->getData());
 
         return $this;
     }
@@ -78,11 +78,13 @@ class HeaderFixtures extends AbstractFixture implements FixtureGroupInterface, O
     {
         foreach ($data as $record) {
             /** @var HeaderInterface $entity */
-            $entity = new static::$class();
+            $entity = $this->getEntity();
 
             $entity
                 ->setIdentity($record[HeaderApiDtoInterface::IDENTITY])
                 ->setTag($record[HeaderApiDtoInterface::TAG]);
+
+            $this->expandEntity($entity);
 
             $this->addReference($referenceName.$i, $entity);
             $manager->persist($entity);
