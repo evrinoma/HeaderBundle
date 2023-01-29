@@ -246,7 +246,7 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
      *             type="array",
      *             @OA\Items(
      *                 type="string",
-     *                 ref=@Model(type=Evrinoma\HeaderBundle\Form\Rest\HeaderTagChoiceType::class),
+     *                 ref=@Model(type=Evrinoma\HeaderBundle\Form\Rest\HeaderTagChoiceType::class, options={"data": "tag"}),
      *             ),
      *         ),
      *         style="form"

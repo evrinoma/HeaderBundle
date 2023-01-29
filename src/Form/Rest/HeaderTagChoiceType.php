@@ -13,7 +13,8 @@ declare(strict_types=1);
 
 namespace Evrinoma\HeaderBundle\Form\Rest;
 
-use Evrinoma\HeaderBundle\Dto\Preserve\HeaderApiDto;
+use Doctrine\DBAL\Exception\TableNotFoundException;
+use Evrinoma\HeaderBundle\Dto\HeaderApiDtoInterface;
 use Evrinoma\HeaderBundle\Exception\HeaderTagNotFoundException;
 use Evrinoma\HeaderBundle\Manager\Header\QueryManagerInterface;
 use Evrinoma\UtilsBundle\Form\Rest\RestChoiceType;
@@ -23,29 +24,40 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class HeaderTagChoiceType extends AbstractType
 {
-    /**
-     * @var QueryManagerInterface
-     */
+    protected static string $dtoClass;
+
     private QueryManagerInterface $queryManager;
 
-    /**
-     * ServerType constructor.
-     */
-    public function __construct(QueryManagerInterface $queryManager)
+    public function __construct(QueryManagerInterface $queryManager, string $dtoClass)
     {
         $this->queryManager = $queryManager;
+        static::$dtoClass = $dtoClass;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $callback = function (Options $options) {
+            $value = [];
             try {
-                $tags = $this->queryManager->tags(new HeaderApiDto());
-            } catch (HeaderTagNotFoundException $exception) {
-                $tags = [];
+                if ($options->offsetExists('data')) {
+                    switch ($options->offsetGet('data')) {
+                        case HeaderApiDtoInterface::TAG:
+                            $value = $this->queryManager->tags(new static::$dtoClass());
+                            break;
+                        default:
+                            $criteria = $this->queryManager->criteria(new static::$dtoClass());
+                            foreach ($criteria as $entity) {
+                                $value[] = $entity->getId();
+                            }
+                    }
+                } else {
+                    throw new HeaderTagNotFoundException();
+                }
+            } catch (TableNotFoundException|HeaderTagNotFoundException $e) {
+                $value = RestChoiceType::REST_CHOICES_DEFAULT;
             }
 
-            return $tags;
+            return $value;
         };
         $resolver->setDefault(RestChoiceType::REST_COMPONENT_NAME, 'tag');
         $resolver->setDefault(RestChoiceType::REST_DESCRIPTION, 'tagList');

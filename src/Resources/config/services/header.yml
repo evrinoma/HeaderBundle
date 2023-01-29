@@ -97,14 +97,14 @@ services:
   Evrinoma\HeaderBundle\PreValidator\DtoPreValidatorInterface:
     alias: evrinoma.header.pre.validator
 
-  evrinoma.header.form.rest.tag:
+  evrinoma.header.header.form.rest.tag:
     class: Evrinoma\HeaderBundle\Form\Rest\HeaderTagChoiceType
     arguments:
       - '@evrinoma.header.query.manager'
     tags: { - name: form.type }
 
   Evrinoma\HeaderBundle\Form\Rest\HeaderTagChoiceType:
-    alias: evrinoma.header.form.rest.tag
+    alias: evrinoma.header.header.form.rest.tag
     public: true
 
   evrinoma.header.object.registry:

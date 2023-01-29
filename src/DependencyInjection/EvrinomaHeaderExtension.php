@@ -124,6 +124,8 @@ class EvrinomaHeaderExtension extends Extension
 
         $this->wireConstraintTag($container);
 
+        $this->wireForm($container, $config['dto'], 'header', 'tag');
+
         if ($config['decorates']) {
             $remap = [];
             foreach ($config['decorates'] as $key => $service) {
@@ -192,6 +194,12 @@ class EvrinomaHeaderExtension extends Extension
                 default:
             }
         }
+    }
+
+    private function wireForm(ContainerBuilder $container, string $class, string $name, string $form): void
+    {
+        $definitionBridgeCreate = $container->getDefinition('evrinoma.'.$this->getAlias().'.'.$name.'.form.rest.'.$form);
+        $definitionBridgeCreate->setArgument(1, $class);
     }
 
     private function wireRepository(ContainerBuilder $container, Reference $registry, string $madiator, string $class, string $driver): void
