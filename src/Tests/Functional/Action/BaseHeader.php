@@ -87,19 +87,23 @@ class BaseHeader extends AbstractServiceTest implements BaseHeaderTestInterface
 
     public function actionDeleteUnprocessable(): void
     {
-        $this->delete(Id::empty());
+        $this->delete(Id::blank());
         $this->testResponseStatusUnprocessable();
     }
 
     public function actionPutNotFound(): void
     {
-        $updated = $this->put(static::getDefault([HeaderApiDtoInterface::ID => Id::wrong()]));
+        $updated = $this->put(static::getDefault([
+            HeaderApiDtoInterface::ID => Id::wrong(),
+        ]));
         $this->testResponseStatusNotFound();
     }
 
     public function actionPutUnprocessable(): void
     {
-        $updated = $this->put(static::getDefault([HeaderApiDtoInterface::ID => Id::empty()]));
+        $updated = $this->put(static::getDefault([
+            HeaderApiDtoInterface::ID => Id::blank(),
+        ]));
         $this->testResponseStatusUnprocessable();
     }
 
@@ -121,7 +125,9 @@ class BaseHeader extends AbstractServiceTest implements BaseHeaderTestInterface
 
     public function actionCriteriaNotFound(): void
     {
-        $query = static::getDefault([HeaderApiDtoInterface::TAG => Tag::wrong()]);
+        $query = static::getDefault([
+            HeaderApiDtoInterface::TAG => Tag::wrong(),
+        ]);
         unset($query[HeaderApiDtoInterface::IDENTITY]);
         unset($query[HeaderApiDtoInterface::ID]);
 
@@ -129,7 +135,9 @@ class BaseHeader extends AbstractServiceTest implements BaseHeaderTestInterface
         $this->testResponseStatusNotFound();
         Assert::assertArrayHasKey(ErrorModel::ERROR, $response);
 
-        $query = static::getDefault([HeaderApiDtoInterface::ID => Id::wrong()]);
+        $query = static::getDefault([
+            HeaderApiDtoInterface::ID => Id::wrong(),
+        ]);
         unset($query[HeaderApiDtoInterface::TAG]);
         unset($query[HeaderApiDtoInterface::IDENTITY]);
 
@@ -137,7 +145,9 @@ class BaseHeader extends AbstractServiceTest implements BaseHeaderTestInterface
         $this->testResponseStatusNotFound();
         Assert::assertArrayHasKey(ErrorModel::ERROR, $response);
 
-        $query = static::getDefault([HeaderApiDtoInterface::IDENTITY => Identity::wrong()]);
+        $query = static::getDefault([
+            HeaderApiDtoInterface::IDENTITY => Identity::wrong(),
+        ]);
         unset($query[HeaderApiDtoInterface::TAG]);
         unset($query[HeaderApiDtoInterface::ID]);
 
