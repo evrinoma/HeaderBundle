@@ -66,7 +66,7 @@ class HeaderFixtures extends AbstractFixture implements FixtureGroupInterface, O
      */
     protected function create(ObjectManager $manager): self
     {
-        $referenceName = self::getReferenceName();
+        $referenceName = static::getReferenceName();
         $i = 0;
 
         $this->entityGenerator($manager, $referenceName, $i, $this->getData());
