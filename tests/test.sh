@@ -8,5 +8,5 @@ echo > $log
 #composer install --dev
 rm -rf /tmp/HeaderBundle
 
-status=$(/usr/bin/php vendor/phpunit/phpunit/phpunit --bootstrap src/Tests/bootstrap.php --configuration phpunit.xml.dist src/Tests >> $log)
-echo $?
+/usr/bin/php vendor/phpunit/phpunit/phpunit --bootstrap src/Tests/bootstrap.php --configuration phpunit.xml.dist src/Tests >> $log
+
