@@ -93,6 +93,7 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
         try {
             $this->facade->post($headerApiDto, $group, $json);
         } catch (\Exception $e) {
+            $json = [];
             $error = $this->setRestStatus($e);
         }
 
@@ -133,6 +134,7 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
         try {
             $this->facade->put($headerApiDto, $group, $json);
         } catch (\Exception $e) {
+            $json = [];
             $error = $this->setRestStatus($e);
         }
 
@@ -182,6 +184,7 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
         try {
             $this->facade->delete($headerApiDto, '', $json);
         } catch (\Exception $e) {
+            $json = [];
             $error = $this->setRestStatus($e);
         }
 
@@ -207,6 +210,7 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
         try {
             $this->facade->remove(new $this->dtoClass(), '', $json);
         } catch (\Exception $e) {
+            $json = [];
             $error = $this->setRestStatus($e);
         }
 
@@ -268,6 +272,7 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
         try {
             $this->facade->criteria($headerApiDto, $group, $json);
         } catch (\Exception $e) {
+            $json = [];
             $error = $this->setRestStatus($e);
         }
 
@@ -316,6 +321,7 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
         try {
             $this->facade->get($headerApiDto, $group, $json);
         } catch (\Exception $e) {
+            $json = [];
             $error = $this->setRestStatus($e);
         }
 
@@ -340,6 +346,7 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
         try {
             $this->facade->registry($group, $json);
         } catch (\Exception $e) {
+            $json = [];
             $error = $this->setRestStatus($e);
         }
 
