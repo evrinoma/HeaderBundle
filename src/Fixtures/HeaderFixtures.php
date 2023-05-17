@@ -88,7 +88,7 @@ class HeaderFixtures extends AbstractFixture implements FixtureGroupInterface, O
 
             $this->addReference($referenceName.$i, $entity);
             $manager->persist($entity);
-            ++$i;
+            $i++;
         }
     }
 }
