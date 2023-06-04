@@ -13,5 +13,5 @@ COMPOSER_NO_DEV=0 composer install
 rm -rf /tmp/HeaderBundle
 
 /usr/bin/php vendor/phpunit/phpunit/phpunit --bootstrap src/Tests/bootstrap.php --configuration phpunit.xml.dist src/Tests >> $log 2>&1
-status=$(cat /tmp/test.dump | grep "ERRORS!")
+status=$(cat /tmp/test.dump | grep -E "ERRORS\!|FAILURES\!")
 [ -z "$status" ] && exit 0 ||  exit -1
