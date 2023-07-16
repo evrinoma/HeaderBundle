@@ -1,11 +1,9 @@
 Evrinoma\HeaderBundle\Model\Header\AbstractHeader:
-  exclusion_policy: ALL
-  properties:
+  attributes:
     id:
       groups: [
           API_GET_HEADER , API_POST_HEADER , API_PUT_HEADER , APP_GET_BASIC_HEADER , API_POST_REGISTRY_HEADER ,
       ]
-      expose: true
     identity:
       groups: [
           API_GET_HEADER , API_POST_HEADER , API_PUT_HEADER , APP_GET_BASIC_HEADER , API_POST_REGISTRY_HEADER ,
@@ -14,4 +12,3 @@ Evrinoma\HeaderBundle\Model\Header\AbstractHeader:
       groups: [
           API_GET_HEADER , API_POST_HEADER , API_PUT_HEADER , APP_GET_BASIC_HEADER , API_POST_REGISTRY_HEADER ,
       ]
-      expose: true

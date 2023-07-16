@@ -3,4 +3,4 @@ jms_serializer:
     directories:
       HeaderBundle:
         namespace_prefix: "Evrinoma\\HeaderBundle"
-        path: '%kernel.root_dir%/Resources/config/serializer/HeaderBundle'
+        path: '%kernel.root_dir%/src/Serializer/JMS/serializer/HeaderBundle'
