@@ -1,0 +1,6 @@
+services:
+  evrinoma.header.serializer.header:
+    class: Evrinoma\HeaderBundle\Serializer\Symfony\ConfigurationHeader
+    public: true
+    tags:
+      - { name: 'evrinoma.serializer' }

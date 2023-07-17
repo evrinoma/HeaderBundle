@@ -120,11 +120,3 @@ services:
     public: true
     arguments:
       - '@evrinoma.header.object.registry'
-
-  evrinoma.header.serializer.header:
-    class: Evrinoma\HeaderBundle\Serializer\Symfony\ConfigurationHeader
-    public: true
-    arguments:
-      - '%kernel.project_dir%'
-    tags:
-      - { name: 'evrinoma.serializer' }
