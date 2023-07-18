@@ -17,5 +17,5 @@ use Evrinoma\UtilsBundle\Serialize\AbstractConfiguration;
 
 class ConfigurationHeader extends AbstractConfiguration
 {
-    protected string $fileName = '/src/Serializer/Symfony/yml/Model.Header.AbstractHeader.yml';
+    protected string $fileName = '/src/Resources/serializer/Symfony/serializer/HeaderBundle/Model.Header.AbstractHeader.yml';
 }
