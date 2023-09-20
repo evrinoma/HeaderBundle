@@ -75,7 +75,7 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
      *         )
      *     )
      * )
-     * @OA\Response(response=200, description="Create header")
+     * @OA\Response(response=201, description="Create header")
      *
      * @return JsonResponse
      */
