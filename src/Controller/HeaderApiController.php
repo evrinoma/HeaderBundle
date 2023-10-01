@@ -97,7 +97,7 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
             $error = $this->setRestStatus($e);
         }
 
-        return $this->setSerializeGroup($group)->JsonResponse('Create header', $json, $error);
+        return $this->setSerializeGroup($group)->jsonResponse('Create header', $json, $error);
     }
 
     /**
@@ -138,7 +138,7 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
             $error = $this->setRestStatus($e);
         }
 
-        return $this->setSerializeGroup($group)->JsonResponse('Save header', $json, $error);
+        return $this->setSerializeGroup($group)->jsonResponse('Save header', $json, $error);
     }
 
     /**
@@ -180,15 +180,16 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
 
         $json = [];
         $error = [];
+        $group = GroupInterface::API_DELETE_HEADER;
 
         try {
-            $this->facade->delete($headerApiDto, '', $json);
+            $this->facade->delete($headerApiDto, $group, $json);
         } catch (\Exception $e) {
             $json = [];
             $error = $this->setRestStatus($e);
         }
 
-        return $this->JsonResponse('Delete header', $json, $error);
+        return $this->setSerializeGroup($group)->jsonResponse('Delete header', $json, $error);
     }
 
     /**
@@ -206,15 +207,16 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
 
         $json = [];
         $error = [];
+        $group = GroupInterface::API_REMOVE_HEADER;
 
         try {
-            $this->facade->remove(new $this->dtoClass(), '', $json);
+            $this->facade->remove(new $this->dtoClass(), $group, $json);
         } catch (\Exception $e) {
             $json = [];
             $error = $this->setRestStatus($e);
         }
 
-        return $this->JsonResponse('Remove all items', $json, $error);
+        return $this->setSerializeGroup($group)->jsonResponse('Remove all items', $json, $error);
     }
 
     /**
@@ -276,7 +278,7 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
             $error = $this->setRestStatus($e);
         }
 
-        return $this->setSerializeGroup($group)->JsonResponse('Get header', $json, $error);
+        return $this->setSerializeGroup($group)->jsonResponse('Get header', $json, $error);
     }
 
     /**
@@ -325,7 +327,7 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
             $error = $this->setRestStatus($e);
         }
 
-        return $this->setSerializeGroup($group)->JsonResponse('Get header', $json, $error);
+        return $this->setSerializeGroup($group)->jsonResponse('Get header', $json, $error);
     }
 
     /**
@@ -350,7 +352,7 @@ final class HeaderApiController extends AbstractWrappedApiController implements 
             $error = $this->setRestStatus($e);
         }
 
-        return $this->setSerializeGroup($group)->JsonResponse('Create header from registry', $json, $error);
+        return $this->setSerializeGroup($group)->jsonResponse('Create header from registry', $json, $error);
     }
 
     /**

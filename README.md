@@ -21,7 +21,8 @@ Actions в контроллере разбиты на две группы соз
 
     1. API_GET_HEADER, API_CRITERIA_HEADER - получение заголовков
     2. API_POST_HEADER - создание заголовков
-    3. API_PUT_HEADER -  редактирование заголовков
+    3. API_PUT_HEADER - редактирование заголовков
+    4. API_DELETE_HEADER - удаление заголовков
 
 # Статусы:
 
