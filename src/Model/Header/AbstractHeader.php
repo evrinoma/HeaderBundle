@@ -192,7 +192,7 @@ abstract class AbstractHeader implements HeaderInterface
     /**
      * @return string
      */
-    public function getTag(): string
+    public function getTag(): ?string
     {
         return $this->tag;
     }

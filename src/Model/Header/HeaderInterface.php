@@ -21,7 +21,7 @@ interface HeaderInterface extends IdInterface, IdentityInterface
     /**
      * @return string
      */
-    public function getTag(): string;
+    public function getTag(): ?string;
 
     /**
      * @param string $tag
